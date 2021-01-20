@@ -1,5 +1,5 @@
 import React from "react";
-import { useSpring, animated, config } from "react-spring";
+import { useSpring, animated } from "react-spring";
 
 const getPosition = (index, currentIndex) => {
   let transform = "rotateY(0deg) scale(1)";
@@ -15,11 +15,11 @@ const getPosition = (index, currentIndex) => {
     left: `${100 * (index - currentIndex)}%`,
     transform,
     zIndex: Math.abs(currentIndex - index) > 1 ? 0 : zIndex,
-    filter: `brightness(${index == currentIndex ? 1 : 0.32})`,
+    filter: `brightness(${index === currentIndex ? 1 : 0.32})`,
   };
 };
 
-const CarouselImage = ({ image, position, index, currentIndex }) => {
+const CarouselImage = ({ image, index, currentIndex }) => {
   const props = useSpring({
     ...getPosition(index, currentIndex),
     config: {
@@ -37,7 +37,7 @@ const CarouselImage = ({ image, position, index, currentIndex }) => {
       style={props}
       key={image.id}
     >
-      <img src={image.href} />
+      <img alt="" src={image.href} />
     </animated.div>
   );
 };

@@ -1,16 +1,5 @@
 .carousel {
-  background: #b24592; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #f15f79,
-    #b24592
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #f15f79,
-    #b24592
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  height: 100%;
+  backdrop-filter: blur(4px);
   padding-top: 37px;
   padding-bottom: 50px;
   overflow: hidden;
@@ -20,6 +9,16 @@
   align-items: center;
   width: 100%;
   position: relative;
+
+  & .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba($color: #3ed4d6, $alpha: 0.3);
+    filter: blur(7px);
+  }
 
   &__container {
     position: relative;
@@ -90,25 +89,23 @@
   }
 
   &__next {
+    opacity: 0;
     z-index: 1000;
-    margin-left: 67px;
-    padding: 4px 17px !important;
-    font-size: 14px !important;
-    line-height: 1.57 !important;
-    letter-spacing: -0.22px !important;
-    color: #c5d2e3 !important;
-    border-color: #c5d2e3 !important;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 50%;
   }
 
   &__prev {
+    opacity: 0;
     z-index: 1000;
-    margin-right: 67px;
-    padding: 4px 17px !important;
-    font-size: 14px !important;
-    line-height: 1.57 !important;
-    letter-spacing: -0.22px !important;
-    color: #c5d2e3 !important;
-    border-color: #c5d2e3 !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 50%;
   }
 }
 

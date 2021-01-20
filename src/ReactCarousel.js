@@ -21,18 +21,6 @@ const ReactCarousel = (props) => {
     return next;
   };
 
-  const getPosition = (index) => {
-    let turn = index < selectedImg ? "before" : "after";
-    if (getPrevIndex(selectedImg) === index) {
-      turn = "left";
-    } else if (selectedImg === index) {
-      turn = "selected";
-    } else if (getNextIndex(selectedImg) === index) {
-      turn = "right";
-    }
-    return turn;
-  };
-
   const effectShadow = () => {
     setShadow(false);
     setTimeout(() => setShadow(true), 500);
@@ -60,26 +48,28 @@ const ReactCarousel = (props) => {
   };
 
   return (
-    <div className="carousel">
-      <button className="btn btn-border carousel__prev" onClick={handlePrev}>
-        PREV
-      </button>
-      <div className="carousel__container">
-        {images.map((img, index) => (
-          <CarouselImage
-            key={img.id}
-            image={img}
-            position={getPosition(index)}
-            index={index}
-            currentIndex={selectedImg}
-          />
-        ))}
+    <div className="container">
+      <div className="carousel">
+        <div className="background" />
+        <button className="btn btn-border carousel__prev" onClick={handlePrev}>
+          PREV
+        </button>
+        <div className="carousel__container">
+          {images.map((img, index) => (
+            <CarouselImage
+              key={img.id}
+              image={img}
+              index={index}
+              currentIndex={selectedImg}
+            />
+          ))}
 
-        <Shadow show={shadow} />
+          <Shadow show={shadow} />
+        </div>
+        <button className="btn btn-border carousel__next" onClick={handleNext}>
+          NEXT
+        </button>
       </div>
-      <button className="btn btn-border carousel__next" onClick={handleNext}>
-        NEXT
-      </button>
       <div className="carousel__container--index">
         {images.map((_, index) => (
           <span

@@ -4,13 +4,11 @@
   box-sizing: border-box;
 }
 
-body {
+.container {
   height: 100vh;
-}
-
-[id="root"] {
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #b24592;
+  background: linear-gradient(to right, #f15f79, #b24592);
 }
