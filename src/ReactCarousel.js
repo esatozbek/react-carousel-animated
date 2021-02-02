@@ -1,85 +1,98 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import CarouselImage from "./CarouselImage";
 import Shadow from "./Shadow";
 import images from "./images";
+import useResizeHandler from "./useResizeHandler";
+import useCycleIndex from "./useCycleIndex";
 
 import "./ReactCarousel.style.scss";
 
 const ReactCarousel = (props) => {
-  const [selectedImg, setSelectedImg] = useState(0);
-  const [shadow, setShadow] = useState(true);
+    const [shadow, setShadow] = useState(true);
+    const containerRef = useRef(null);
+    const [containerWidth] = useResizeHandler(containerRef);
+    const { index: selectedIndex, next, prev } = useCycleIndex(images.length);
 
-  const getPrevIndex = (index) => {
-    let prev = index - 1;
-    if (prev < 0) prev = -1;
-    return prev;
-  };
+    const handleNext = () => {
+        next();
+    };
 
-  const getNextIndex = (index) => {
-    let next = index + 1;
-    if (next >= images.length) next = -1;
-    return next;
-  };
+    const handlePrev = () => {
+        prev();
+    };
 
-  const effectShadow = () => {
-    setShadow(false);
-    setTimeout(() => setShadow(true), 500);
-  };
+    // const getPrevIndex = (index) => {
+    //     let prev = index - 1;
+    //     if (prev < 0) prev = -1;
+    //     return prev;
+    // };
 
-  const handlePrev = async () => {
-    effectShadow();
-    const prevIndex = getPrevIndex(selectedImg);
-    if (prevIndex < 0) {
-      console.log("asd");
-      for (let i = 0; i < images.length; i++) {
-        await Promise.resolve((resolve) => setTimeout(resolve, 1500));
-        setSelectedImg(i);
-      }
-    } else {
-      setSelectedImg(prevIndex);
-    }
-  };
+    // const getNextIndex = (index) => {
+    //     let next = index + 1;
+    //     if (next >= images.length) next = -1;
+    //     return next;
+    // };
 
-  const handleNext = () => {
-    effectShadow();
-    const nextIndex = getNextIndex(selectedImg);
-    if (nextIndex < 0) setSelectedImg(0);
-    else setSelectedImg(nextIndex);
-  };
+    const effectShadow = () => {
+        setShadow(false);
+        setTimeout(() => setShadow(true), 500);
+    };
 
-  return (
-    <div className="container">
-      <div className="carousel">
-        <div className="background" />
-        <button className="btn btn-border carousel__prev" onClick={handlePrev}>
-          PREV
-        </button>
-        <div className="carousel__container">
-          {images.map((img, index) => (
-            <CarouselImage
-              key={img.id}
-              image={img}
-              index={index}
-              currentIndex={selectedImg}
-            />
-          ))}
+    // const handlePrev = () => {
+    //     effectShadow();
+    //     const prevIndex = getPrevIndex(selectedImg);
+    //     if (prevIndex < 0) {
+    //         for (let i = 0; i < images.length; i++) {
+    //             setSelectedImg(i);
+    //         }
+    //     } else {
+    //         setSelectedImg(prevIndex);
+    //     }
+    // };
 
-          <Shadow show={shadow} />
+    // const handleNext = () => {
+    //     effectShadow();
+    //     const nextIndex = getNextIndex(selectedImg);
+    //     if (nextIndex < 0) setSelectedImg(0);
+    //     else setSelectedImg(nextIndex);
+    // };
+
+    return (
+        <div className="container">
+            <div className="carousel">
+                <div className="background" />
+                <button className="btn btn-border carousel__prev" onClick={handlePrev}>
+                    PREV
+                </button>
+                <div className="carousel__container" ref={containerRef} on>
+                    {containerWidth
+                        ? images.map((img, index) => (
+                              <CarouselImage
+                                  key={img.id}
+                                  image={img}
+                                  index={index}
+                                  selectedItemIndex={selectedIndex}
+                                  containerWidth={containerWidth}
+                              />
+                          ))
+                        : null}
+
+                    {/* <Shadow show={shadow} /> */}
+                </div>
+                <button className="btn btn-border carousel__next" onClick={handleNext}>
+                    NEXT
+                </button>
+            </div>
+            <div className="carousel__container--index">
+                {images.map((_, index) => (
+                    <span
+                        key={`${index}dot`}
+                        className={`${index === selectedIndex && "selected"}`}
+                    ></span>
+                ))}
+            </div>
         </div>
-        <button className="btn btn-border carousel__next" onClick={handleNext}>
-          NEXT
-        </button>
-      </div>
-      <div className="carousel__container--index">
-        {images.map((_, index) => (
-          <span
-            key={`${index}dot`}
-            className={`${index === selectedImg && "selected"}`}
-          ></span>
-        ))}
-      </div>
-    </div>
-  );
+    );
 };
 
 export default ReactCarousel;

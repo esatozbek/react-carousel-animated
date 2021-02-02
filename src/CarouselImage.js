@@ -1,45 +1,64 @@
-import React from "react";
+import React, { useRef, useCallback, useState, useLayoutEffect } from "react";
 import { useSpring, animated } from "react-spring";
+import useResizeHandler from "./useResizeHandler";
+import { getPosition } from "./utils";
+import {
+    rotateY,
+    translateX,
+    translateY,
+    zIndex,
+    left,
+    top,
+    brightness,
+} from "./constants";
 
-const getPosition = (index, currentIndex) => {
-  let transform = "rotateY(0deg) scale(1)";
-  let zIndex = 0;
-  if (index > currentIndex) {
-    zIndex = 1;
-    transform = "rotateY(-55deg) scale(1)";
-  } else if (index < currentIndex) {
-    zIndex = 1;
-    transform = "rotateY(55deg) scale(1)";
-  }
-  return {
-    left: `${100 * (index - currentIndex)}%`,
-    transform,
-    zIndex: Math.abs(currentIndex - index) > 1 ? 0 : zIndex,
-    filter: `brightness(${index === currentIndex ? 1 : 0.32})`,
-  };
-};
+const CarouselImage = ({ image, index, selectedItemIndex, containerWidth }) => {
+    const imageRef = useRef(null);
+    const [position, setPosition] = useState({});
+    const [imageWidth] = useResizeHandler(imageRef);
 
-const CarouselImage = ({ image, index, currentIndex }) => {
-  const props = useSpring({
-    ...getPosition(index, currentIndex),
-    config: {
-      mass: 2,
-      tension: 170,
-      friction: 26,
-      clamp: false,
-      precision: 0.01,
-    },
-  });
+    const getSpringPosition = useCallback(() => {
+        const position = getPosition(index, selectedItemIndex);
+        const indexDiff = selectedItemIndex - index;
 
-  return (
-    <animated.div
-      className={`carousel__container--img`}
-      style={props}
-      key={image.id}
-    >
-      <img alt="" src={image.href} />
-    </animated.div>
-  );
+        return {
+            transform: `${rotateY[position]} ${translateX[position]} ${translateY[position]}`,
+            zIndex: zIndex[position],
+            left: left[position](containerWidth, indexDiff, imageWidth),
+            top: top[position],
+            filter: brightness[position],
+        };
+    }, [containerWidth, imageWidth, index, selectedItemIndex]);
+
+    useLayoutEffect(() => {
+        setPosition(
+            getSpringPosition(index, selectedItemIndex, imageWidth, containerWidth)
+        );
+    }, [containerWidth, selectedItemIndex, index, imageWidth, getSpringPosition]);
+
+    const props = useSpring({
+        ...position,
+        config: {
+            mass: 2,
+            tension: 170,
+            friction: 26,
+            clamp: false,
+            precision: 0.001,
+        },
+    });
+
+    return (
+        <animated.div
+            className={`carousel__container--img ${
+                index === selectedItemIndex && "selected"
+            }`}
+            style={props}
+            key={image.id}
+            ref={imageRef}
+        >
+            <img alt="" src={image.href} />
+        </animated.div>
+    );
 };
 
 export default CarouselImage;
