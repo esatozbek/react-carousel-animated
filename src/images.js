@@ -45,6 +45,11 @@ const images = [
             href: "https://via.placeholder.com/320x820",
         })),
     ],
+    [
+        ...[1, 2, 3, 4, 5, 6, 7, 8, 9].map(() => ({
+            href: "https://via.placeholder.com/820x320",
+        })),
+    ],
 ];
 
 export default images;

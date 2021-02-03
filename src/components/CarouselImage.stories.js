@@ -43,7 +43,7 @@ export const Image = ({ height, width }) => {
             }}
         >
             <CarouselImage
-                image={images[0]}
+                image={images[0][0]}
                 index={0}
                 selectedItemIndex={0}
                 containerWidth={width || 0}
