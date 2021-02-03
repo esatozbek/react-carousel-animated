@@ -1,3 +1,5 @@
+import { BEFORE, CENTER, AFTER } from "../constants/animationConstants";
+
 export function isBeforeSelected(index, selectedIndex) {
     return index < selectedIndex;
 }
@@ -8,9 +10,9 @@ export function isAfterSelected(index, selectedIndex) {
 
 export function getPosition(index, selectedIndex) {
     if (isBeforeSelected(index, selectedIndex)) {
-        return "before";
+        return BEFORE;
     } else if (isAfterSelected(index, selectedIndex)) {
-        return "after";
+        return AFTER;
     }
-    return "neutral";
+    return CENTER;
 }

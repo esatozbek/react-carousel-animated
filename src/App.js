@@ -1,9 +1,10 @@
-import ReactCarousel from "./ReactCarousel";
+import ReactCarousel from "./components/ReactCarousel";
+import images from "./images";
 
-import "./App.style.scss";
+import "./styles/App.style.scss";
 
 function App() {
-  return <ReactCarousel />;
+    return <ReactCarousel images={images[0]} />;
 }
 
 export default App;

@@ -1,7 +1,7 @@
 import React, { useRef, useCallback, useState, useLayoutEffect } from "react";
 import { useSpring, animated } from "react-spring";
-import useResizeHandler from "./useResizeHandler";
-import { getPosition } from "./utils";
+import useResizeHandler from "../hooks/useResizeHandler";
+import { getPosition } from "../utils/utils";
 import {
     rotateY,
     translateX,
@@ -10,9 +10,16 @@ import {
     left,
     top,
     brightness,
-} from "./constants";
+    getSpringConfig,
+} from "../animation/animationProperties";
 
-const CarouselImage = ({ image, index, selectedItemIndex, containerWidth }) => {
+const CarouselImage = ({
+    image,
+    index,
+    selectedItemIndex,
+    containerWidth,
+    springConfig,
+}) => {
     const imageRef = useRef(null);
     const [position, setPosition] = useState({});
     const [imageWidth] = useResizeHandler(imageRef);
@@ -38,13 +45,7 @@ const CarouselImage = ({ image, index, selectedItemIndex, containerWidth }) => {
 
     const props = useSpring({
         ...position,
-        config: {
-            mass: 2,
-            tension: 170,
-            friction: 26,
-            clamp: false,
-            precision: 0.001,
-        },
+        config: getSpringConfig(springConfig),
     });
 
     return (
