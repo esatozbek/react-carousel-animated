@@ -18,7 +18,12 @@ const CarouselImage = ({
     index,
     selectedItemIndex,
     containerWidth,
+    containerHeight,
     springConfig,
+    imageBackgroundStyle,
+    imageStyle,
+    maxWidth,
+    maxHeight,
 }) => {
     const imageRef = useRef(null);
     const [position, setPosition] = useState({});
@@ -53,11 +58,19 @@ const CarouselImage = ({
             className={`carousel__container--img ${
                 index === selectedItemIndex && "selected"
             }`}
-            style={props}
+            style={{ ...props, ...imageBackgroundStyle }}
             key={image.id}
             ref={imageRef}
         >
-            <img alt="" src={image.href} />
+            <img
+                alt=""
+                src={image.href}
+                style={{
+                    maxWidth,
+                    maxHeight,
+                    ...imageStyle,
+                }}
+            />
         </animated.div>
     );
 };
