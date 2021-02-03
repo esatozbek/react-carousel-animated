@@ -1,7 +1,8 @@
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 
 const NEXT = "NEXT";
 const PREV = "PREV";
+const LENGTH_CHANGE = "LENGTH_CHANGE";
 
 function reducer(state, action) {
     switch (action.type) {
@@ -19,6 +20,11 @@ function reducer(state, action) {
                     ? { index: state.length - 1 }
                     : { index: state.index - 1 }),
             };
+        case LENGTH_CHANGE:
+            return {
+                ...state,
+                length: action.payload,
+            };
         default:
             return 2;
     }
@@ -29,6 +35,10 @@ function useCycleIndex(length) {
         length,
         index: 0,
     });
+
+    useEffect(() => {
+        dispatch({ type: LENGTH_CHANGE, payload: length });
+    }, [length]);
 
     const next = () => {
         dispatch({ type: NEXT });
