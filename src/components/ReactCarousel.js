@@ -51,7 +51,7 @@ const ReactCarousel = ({
                 <div
                     className="carousel__container"
                     ref={containerRef}
-                    style={{ ...containerStyle }}
+                    style={{ height: calculateMaxHeight(), ...containerStyle }}
                 >
                     {containerWidth
                         ? images.map((img, index) => (

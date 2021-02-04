@@ -44,9 +44,14 @@ export default {
     },
 };
 
-export const Carousel = ({ springConfig, imagesIndex }) => {
+export const Carousel = ({ springConfig, imagesIndex, itemMaxWidth, itemMaxHeight }) => {
     return (
-        <ReactCarousel images={images[imagesIndex || 0]} springConfig={springConfig} />
+        <ReactCarousel
+            images={images[imagesIndex || 0]}
+            springConfig={springConfig}
+            itemMaxWidth={itemMaxWidth || 50}
+            itemMaxHeight={`${itemMaxHeight || 500}px`}
+        />
     );
 };
 
