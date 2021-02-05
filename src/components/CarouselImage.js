@@ -1,7 +1,7 @@
 import React, { useRef, useCallback, useState, useLayoutEffect } from "react";
 import { useSpring, animated } from "react-spring";
 import useResizeHandler from "../hooks/useResizeHandler";
-import { getPosition } from "../utils/utils";
+import { getPositionName } from "../utils/utils";
 import {
     rotateY,
     translateX,
@@ -30,15 +30,15 @@ const CarouselImage = ({
     const [imageWidth] = useResizeHandler(imageRef);
 
     const getSpringPosition = useCallback(() => {
-        const position = getPosition(index, selectedItemIndex);
+        const positionName = getPositionName(index, selectedItemIndex);
         const indexDiff = selectedItemIndex - index;
 
         return {
-            transform: `${rotateY[position]} ${translateX[position]} ${translateY[position]}`,
-            zIndex: zIndex[position],
-            left: left[position](containerWidth, indexDiff, imageWidth),
-            top: top[position],
-            filter: brightness[position],
+            transform: `${rotateY[positionName]} ${translateX[positionName]} ${translateY[positionName]}`,
+            zIndex: zIndex[positionName],
+            left: left[positionName](containerWidth, indexDiff, imageWidth),
+            top: top[positionName],
+            filter: brightness[positionName],
         };
     }, [containerWidth, imageWidth, index, selectedItemIndex]);
 
@@ -48,19 +48,18 @@ const CarouselImage = ({
         );
     }, [containerWidth, selectedItemIndex, index, imageWidth, getSpringPosition]);
 
-    const props = useSpring({
+    const animationProps = useSpring({
         ...position,
         config: getSpringConfig(springConfig),
     });
 
     return (
         <animated.div
-            className={`carousel__container--img ${
-                index === selectedItemIndex && "selected"
-            }`}
-            style={{ ...props, ...imageBackgroundStyle }}
+            className={"carousel__container--img"}
+            style={{ ...animationProps, ...imageBackgroundStyle }}
             key={image.id}
             ref={imageRef}
+            data-testid="container"
         >
             <img
                 alt=""
