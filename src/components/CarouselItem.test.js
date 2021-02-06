@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import { useSpring } from "react-spring";
-import CarouselImage from "./CarouselImage";
+import CarouselItem from "./CarouselItem";
 import {
     rotateY,
     translateX,
@@ -36,22 +36,22 @@ describe("Carousel image tests", () => {
     });
 
     it("Renders correctly", () => {
-        const carouselImage = render(
-            <CarouselImage index={0} selectedItemIndex={0} containerWidth={1500}>
+        const carouselItem = render(
+            <CarouselItem index={0} selectedItemIndex={0} containerWidth={1500}>
                 <img src={images[0][0]} alt="test" />
-            </CarouselImage>
+            </CarouselItem>
         );
-        expect(carouselImage.getByRole("img")).toBeDefined();
+        expect(carouselItem.getByRole("img")).toBeDefined();
     });
 
     it("Selected position test", () => {
         useSpring.mockImplementation(mockUseSpring);
-        const carouselImage = render(
-            <CarouselImage index={0} selectedItemIndex={0} containerWidth={1500}>
+        const carouselItem = render(
+            <CarouselItem index={0} selectedItemIndex={0} containerWidth={1500}>
                 <img src={images[0][0]} alt="test" />
-            </CarouselImage>
+            </CarouselItem>
         );
-        expect(carouselImage.getByTestId("container")).toBeDefined();
+        expect(carouselItem.getByTestId("container")).toBeDefined();
         expect(mockUseSpring).toBeCalledWith({ config: getSpringConfig() });
         expect(mockUseSpring).toBeCalledWith({
             config: getSpringConfig(),
@@ -65,12 +65,12 @@ describe("Carousel image tests", () => {
 
     it("Before position test", () => {
         useSpring.mockImplementation(mockUseSpring);
-        const carouselImage = render(
-            <CarouselImage index={0} selectedItemIndex={1} containerWidth={1500}>
+        const carouselItem = render(
+            <CarouselItem index={0} selectedItemIndex={1} containerWidth={1500}>
                 <img src={images[0][0]} alt="test" />
-            </CarouselImage>
+            </CarouselItem>
         );
-        expect(carouselImage.getByTestId("container")).toBeDefined();
+        expect(carouselItem.getByTestId("container")).toBeDefined();
         expect(mockUseSpring).toBeCalledWith({ config: getSpringConfig() });
         expect(mockUseSpring).toBeCalledWith({
             config: getSpringConfig(),
@@ -84,12 +84,12 @@ describe("Carousel image tests", () => {
 
     it("After position test", () => {
         useSpring.mockImplementation(mockUseSpring);
-        const carouselImage = render(
-            <CarouselImage index={1} selectedItemIndex={0} containerWidth={1500}>
+        const carouselItem = render(
+            <CarouselItem index={1} selectedItemIndex={0} containerWidth={1500}>
                 <img src={images[0][0]} alt="test" />
-            </CarouselImage>
+            </CarouselItem>
         );
-        expect(carouselImage.getByTestId("container")).toBeDefined();
+        expect(carouselItem.getByTestId("container")).toBeDefined();
         expect(mockUseSpring).toBeCalledWith({ config: getSpringConfig() });
         expect(mockUseSpring).toBeCalledWith({
             config: getSpringConfig(),
