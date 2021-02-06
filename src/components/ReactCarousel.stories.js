@@ -47,11 +47,14 @@ export default {
 export const Carousel = ({ springConfig, imagesIndex, itemMaxWidth, itemMaxHeight }) => {
     return (
         <ReactCarousel
-            images={images[imagesIndex || 0]}
             springConfig={springConfig}
             itemMaxWidth={itemMaxWidth || 50}
             itemMaxHeight={`${itemMaxHeight || 500}px`}
-        />
+        >
+            {images[imagesIndex || 0].map((image) => (
+                <img src={image.src} alt="test" />
+            ))}
+        </ReactCarousel>
     );
 };
 
@@ -65,11 +68,14 @@ export const CarouselInDiv = ({
     return (
         <div style={{ width }}>
             <ReactCarousel
-                images={images[imagesIndex || 0]}
                 springConfig={springConfig}
                 itemMaxWidth={itemMaxWidth || 50}
                 itemMaxHeight={`${itemMaxHeight || 500}px`}
-            />
+            >
+                {images[imagesIndex || 0].map((image) => (
+                    <img src={image.src} alt="test" />
+                ))}
+            </ReactCarousel>
         </div>
     );
 };
@@ -84,14 +90,13 @@ export const CarouselWithStyle = ({
     return (
         <div style={{ width }}>
             <ReactCarousel
-                images={images[imagesIndex || 0]}
                 springConfig={springConfig}
-                imageStyle={{
+                itemStyle={{
                     borderRadius: "20px",
                     boxShadow: "0 7px 20px 2px rgb(150, 170, 180)",
                     margin: "1rem",
                 }}
-                imageBackgroundStyle={{
+                itemBackgroundStyle={{
                     backgroundColor: "#ece4db",
                     borderRadius: "3px",
                     boxShadow: "8px 12px 14px -6px black",
@@ -102,7 +107,11 @@ export const CarouselWithStyle = ({
                 }}
                 itemMaxWidth={itemMaxWidth || 50}
                 itemMaxHeight={`${itemMaxHeight || 500}px`}
-            />
+            >
+                {images[imagesIndex || 0].map((image, index) => (
+                    <img key={index} src={image.src} alt="test" />
+                ))}
+            </ReactCarousel>
         </div>
     );
 };

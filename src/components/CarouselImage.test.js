@@ -36,19 +36,20 @@ describe("Carousel image tests", () => {
     });
 
     it("Renders correctly", () => {
-        const carouselImage = render(<CarouselImage image={images[0][0]} />);
+        const carouselImage = render(
+            <CarouselImage index={0} selectedItemIndex={0} containerWidth={1500}>
+                <img src={images[0][0]} alt="test" />
+            </CarouselImage>
+        );
         expect(carouselImage.getByRole("img")).toBeDefined();
     });
 
     it("Selected position test", () => {
         useSpring.mockImplementation(mockUseSpring);
         const carouselImage = render(
-            <CarouselImage
-                image={images[0]}
-                index={0}
-                selectedItemIndex={0}
-                containerWidth={1500}
-            />
+            <CarouselImage index={0} selectedItemIndex={0} containerWidth={1500}>
+                <img src={images[0][0]} alt="test" />
+            </CarouselImage>
         );
         expect(carouselImage.getByTestId("container")).toBeDefined();
         expect(mockUseSpring).toBeCalledWith({ config: getSpringConfig() });
@@ -65,12 +66,9 @@ describe("Carousel image tests", () => {
     it("Before position test", () => {
         useSpring.mockImplementation(mockUseSpring);
         const carouselImage = render(
-            <CarouselImage
-                image={images[0][0]}
-                index={0}
-                selectedItemIndex={1}
-                containerWidth={1500}
-            />
+            <CarouselImage index={0} selectedItemIndex={1} containerWidth={1500}>
+                <img src={images[0][0]} alt="test" />
+            </CarouselImage>
         );
         expect(carouselImage.getByTestId("container")).toBeDefined();
         expect(mockUseSpring).toBeCalledWith({ config: getSpringConfig() });
@@ -87,12 +85,9 @@ describe("Carousel image tests", () => {
     it("After position test", () => {
         useSpring.mockImplementation(mockUseSpring);
         const carouselImage = render(
-            <CarouselImage
-                image={images[0][0]}
-                index={1}
-                selectedItemIndex={0}
-                containerWidth={1500}
-            />
+            <CarouselImage index={1} selectedItemIndex={0} containerWidth={1500}>
+                <img src={images[0][0]} alt="test" />
+            </CarouselImage>
         );
         expect(carouselImage.getByTestId("container")).toBeDefined();
         expect(mockUseSpring).toBeCalledWith({ config: getSpringConfig() });

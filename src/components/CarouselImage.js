@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useState, useLayoutEffect } from "react";
+import React, { useRef, useCallback, useState, useLayoutEffect, Children } from "react";
 import { useSpring, animated } from "react-spring";
 import useResizeHandler from "../hooks/useResizeHandler";
 import { getPositionName } from "../utils/utils";
@@ -14,14 +14,13 @@ import {
 } from "../animation/animationProperties";
 
 const CarouselImage = ({
-    image,
+    children,
     index,
     selectedItemIndex,
     containerWidth,
     containerHeight,
     springConfig,
-    imageBackgroundStyle,
-    imageStyle,
+    itemBackgroundStyle,
     maxWidth,
     maxHeight,
 }) => {
@@ -53,21 +52,21 @@ const CarouselImage = ({
         config: getSpringConfig(springConfig),
     });
 
+    const Element = Children.only(children);
+    const { type: ElementType } = Element;
     return (
         <animated.div
             className={"carousel__container--img"}
-            style={{ ...animationProps, ...imageBackgroundStyle }}
-            key={image.id}
+            style={{ ...animationProps, ...itemBackgroundStyle }}
             ref={imageRef}
             data-testid="container"
         >
-            <img
-                alt=""
-                src={image.href}
+            <ElementType
+                {...Element.props}
                 style={{
+                    ...Element.props.style,
                     maxWidth,
                     maxHeight,
-                    ...imageStyle,
                 }}
             />
         </animated.div>

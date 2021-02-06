@@ -42,12 +42,9 @@ export const Image = ({ height, width }) => {
                 height: heightPx,
             }}
         >
-            <CarouselImage
-                image={images[0][0]}
-                index={0}
-                selectedItemIndex={0}
-                containerWidth={width || 0}
-            />
+            <CarouselImage index={0} selectedItemIndex={0} containerWidth={width || 0}>
+                <img src={images[0][0].src} alt="test" />
+            </CarouselImage>
         </div>
     );
 };
@@ -55,12 +52,9 @@ export const Image = ({ height, width }) => {
 export const ImageLeft = () => {
     return (
         <div style={{ position: "relative", height: "500px", width: "100%" }}>
-            <CarouselImage
-                image={images[0]}
-                index={0}
-                selectedItemIndex={1}
-                containerWidth={1500}
-            />
+            <CarouselImage index={0} selectedItemIndex={1} containerWidth={1500}>
+                <img src={images[0][0].src} alt="test" />
+            </CarouselImage>
         </div>
     );
 };
@@ -73,7 +67,9 @@ export const ImageRight = () => {
                 index={1}
                 selectedItemIndex={0}
                 containerWidth={1500}
-            />
+            >
+                <img src={images[0][0].src} alt="test" />
+            </CarouselImage>
         </div>
     );
 };
