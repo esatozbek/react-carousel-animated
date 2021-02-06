@@ -14,6 +14,8 @@ const ReactCarousel = ({
     imageStyle,
     itemMaxWidth,
     itemMaxHeight,
+    prevButtonText,
+    nextButtonText,
 }) => {
     const containerRef = useRef(null);
     const [containerWidth, containerHeight] = useResizeHandler(containerRef);
@@ -50,7 +52,7 @@ const ReactCarousel = ({
                     onClick={handlePrev}
                     data-testid="prev"
                 >
-                    PREV
+                    {prevButtonText}
                 </button>
                 <div
                     className="carousel__container"
@@ -80,16 +82,16 @@ const ReactCarousel = ({
                     onClick={handleNext}
                     data-testid="next"
                 >
-                    NEXT
+                    {nextButtonText}
                 </button>
-            </div>
-            <div className="carousel__container--index">
-                {images.map((_, index) => (
-                    <span
-                        key={`${index}dot`}
-                        className={`${index === selectedIndex && "selected"}`}
-                    ></span>
-                ))}
+                <div className="carousel__container--index">
+                    {images.map((_, index) => (
+                        <span
+                            key={`${index}dot`}
+                            className={`${index === selectedIndex && "selected"}`}
+                        ></span>
+                    ))}
+                </div>
             </div>
         </div>
     );
