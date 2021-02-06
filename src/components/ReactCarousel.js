@@ -45,7 +45,11 @@ const ReactCarousel = ({
         <div className="container">
             <div className="carousel">
                 <div className="background" style={{ ...containerBackgroundStyle }} />
-                <button className="btn btn-border carousel__prev" onClick={handlePrev}>
+                <button
+                    className="btn btn-border carousel__prev"
+                    onClick={handlePrev}
+                    data-testid="prev"
+                >
                     PREV
                 </button>
                 <div
@@ -71,7 +75,11 @@ const ReactCarousel = ({
                           ))
                         : null}
                 </div>
-                <button className="btn btn-border carousel__next" onClick={handleNext}>
+                <button
+                    className="btn btn-border carousel__next"
+                    onClick={handleNext}
+                    data-testid="next"
+                >
                     NEXT
                 </button>
             </div>

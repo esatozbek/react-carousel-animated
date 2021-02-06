@@ -4,7 +4,7 @@ const NEXT = "NEXT";
 const PREV = "PREV";
 const LENGTH_CHANGE = "LENGTH_CHANGE";
 
-function reducer(state, action) {
+export function reducer(state, action) {
     switch (action.type) {
         case NEXT:
             return {
@@ -26,7 +26,7 @@ function reducer(state, action) {
                 length: action.payload,
             };
         default:
-            return 2;
+            return { ...state };
     }
 }
 

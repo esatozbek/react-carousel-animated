@@ -15,9 +15,10 @@ function useResizeHandler(ref) {
         observer.current.observe(ref.current);
 
         return () => {
+            // eslint-disable-next-line react-hooks/exhaustive-deps
             observer.current.disconnect();
         };
-    }, []);
+    }, [ref]);
 
     return [width, height];
 }
