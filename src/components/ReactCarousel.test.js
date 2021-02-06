@@ -1,0 +1,31 @@
+import React from "react";
+import ReactCarousel from "./ReactCarousel";
+import { render, fireEvent, waitFor } from "@testing-library/react";
+import images from "../images";
+
+jest.mock("../hooks/useResizeHandler", () => {
+    return () => {
+        return [1000, 820];
+    };
+});
+
+describe("Carousel tests", () => {
+    it("Renders correctly", () => {
+        const carousel = render(<ReactCarousel images={images[0]} />);
+        expect(carousel.getAllByRole("img")).toHaveLength(images[0].length);
+    });
+
+    it("Prev action test", async () => {
+        const carousel = render(<ReactCarousel images={images[0]} />);
+        const prev = carousel.getByTestId("prev");
+        fireEvent.click(prev);
+        expect(carousel.getAllByRole("img")).toHaveLength(images[0].length);
+    });
+
+    it("Next action test", async () => {
+        const carousel = render(<ReactCarousel images={images[0]} />);
+        const next = carousel.getByTestId("next");
+        fireEvent.click(next);
+        expect(carousel.getAllByRole("img")).toHaveLength(images[0].length);
+    });
+});

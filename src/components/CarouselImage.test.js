@@ -36,7 +36,7 @@ describe("Carousel image tests", () => {
     });
 
     it("Renders correctly", () => {
-        const carouselImage = render(<CarouselImage image={images[0]} />);
+        const carouselImage = render(<CarouselImage image={images[0][0]} />);
         expect(carouselImage.getByRole("img")).toBeDefined();
     });
 
@@ -66,7 +66,7 @@ describe("Carousel image tests", () => {
         useSpring.mockImplementation(mockUseSpring);
         const carouselImage = render(
             <CarouselImage
-                image={images[0]}
+                image={images[0][0]}
                 index={0}
                 selectedItemIndex={1}
                 containerWidth={1500}
@@ -88,7 +88,7 @@ describe("Carousel image tests", () => {
         useSpring.mockImplementation(mockUseSpring);
         const carouselImage = render(
             <CarouselImage
-                image={images[0]}
+                image={images[0][0]}
                 index={1}
                 selectedItemIndex={0}
                 containerWidth={1500}
