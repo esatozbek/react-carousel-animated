@@ -6,12 +6,12 @@ import useCycleIndex from "../hooks/useCycleIndex";
 import "../styles/ReactCarousel.style.scss";
 
 const ReactCarousel = ({
-    images,
+    children,
     springConfig,
     containerStyle,
     containerBackgroundStyle,
-    imageBackgroundStyle,
-    imageStyle,
+    itemBackgroundStyle,
+    itemStyle,
     itemMaxWidth,
     itemMaxHeight,
     prevButtonText,
@@ -19,7 +19,7 @@ const ReactCarousel = ({
 }) => {
     const containerRef = useRef(null);
     const [containerWidth, containerHeight] = useResizeHandler(containerRef);
-    const { index: selectedIndex, next, prev } = useCycleIndex(images.length);
+    const { index: selectedIndex, next, prev } = useCycleIndex(children.length);
 
     const handleNext = () => {
         next();
@@ -60,20 +60,20 @@ const ReactCarousel = ({
                     style={{ height: calculateMaxHeight(), ...containerStyle }}
                 >
                     {containerWidth
-                        ? images.map((img, index) => (
+                        ? children.map((element, index) => (
                               <CarouselImage
                                   key={index}
-                                  image={img}
                                   index={index}
                                   selectedItemIndex={selectedIndex}
                                   containerWidth={containerWidth}
                                   containerHeight={containerHeight}
                                   springConfig={springConfig}
-                                  imageBackgroundStyle={imageBackgroundStyle}
-                                  imageStyle={imageStyle}
+                                  itemBackgroundStyle={itemBackgroundStyle}
                                   maxWidth={calculateMaxWidth()}
                                   maxHeight={calculateMaxHeight()}
-                              />
+                              >
+                                  {element}
+                              </CarouselImage>
                           ))
                         : null}
                 </div>
@@ -85,7 +85,7 @@ const ReactCarousel = ({
                     {nextButtonText}
                 </button>
                 <div className="carousel__container--index">
-                    {images.map((_, index) => (
+                    {children.map((_, index) => (
                         <span
                             key={`${index}dot`}
                             className={`${index === selectedIndex && "selected"}`}

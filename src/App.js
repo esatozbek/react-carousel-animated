@@ -6,13 +6,7 @@ import "./styles/App.style.scss";
 function App() {
     return (
         <ReactCarousel
-            images={images[0]}
-            imageStyle={{
-                borderRadius: "20px",
-                boxShadow: "0 7px 20px 2px rgb(150, 170, 180)",
-                margin: "1rem",
-            }}
-            imageBackgroundStyle={{
+            itemBackgroundStyle={{
                 backgroundColor: "#ece4db",
                 borderRadius: "3px",
                 boxShadow: "8px 12px 14px -6px black",
@@ -23,7 +17,20 @@ function App() {
             }}
             itemMaxWidth={50}
             itemMaxHeight="500px"
-        />
+        >
+            {images[0].map((image, index) => (
+                <img
+                    key={index}
+                    src={image.src}
+                    alt="test"
+                    style={{
+                        borderRadius: "20px",
+                        boxShadow: "0 7px 20px 2px rgb(150, 170, 180)",
+                        margin: "1rem",
+                    }}
+                />
+            ))}
+        </ReactCarousel>
     );
 }
 
