@@ -1,5 +1,5 @@
 import React from "react";
-import CarouselImage from "./CarouselImage";
+import CarouselItem from "./CarouselItem";
 import images from "../images";
 
 function numberToPx(num) {
@@ -12,8 +12,8 @@ function numberToPercent(num) {
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-    title: "CarouselImage",
-    component: CarouselImage,
+    title: "CarouselItem",
+    component: CarouselItem,
     argTypes: {
         height: {
             control: {
@@ -42,9 +42,9 @@ export const Image = ({ height, width }) => {
                 height: heightPx,
             }}
         >
-            <CarouselImage index={0} selectedItemIndex={0} containerWidth={width || 0}>
+            <CarouselItem index={0} selectedItemIndex={0} containerWidth={width || 0}>
                 <img src={images[0][0].src} alt="test" />
-            </CarouselImage>
+            </CarouselItem>
         </div>
     );
 };
@@ -52,9 +52,9 @@ export const Image = ({ height, width }) => {
 export const ImageLeft = () => {
     return (
         <div style={{ position: "relative", height: "500px", width: "100%" }}>
-            <CarouselImage index={0} selectedItemIndex={1} containerWidth={1500}>
+            <CarouselItem index={0} selectedItemIndex={1} containerWidth={1500}>
                 <img src={images[0][0].src} alt="test" />
-            </CarouselImage>
+            </CarouselItem>
         </div>
     );
 };
@@ -62,14 +62,14 @@ export const ImageLeft = () => {
 export const ImageRight = () => {
     return (
         <div style={{ position: "relative", height: "500px", width: "100%" }}>
-            <CarouselImage
+            <CarouselItem
                 image={images[0]}
                 index={1}
                 selectedItemIndex={0}
                 containerWidth={1500}
             >
                 <img src={images[0][0].src} alt="test" />
-            </CarouselImage>
+            </CarouselItem>
         </div>
     );
 };

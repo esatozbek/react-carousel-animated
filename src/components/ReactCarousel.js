@@ -1,5 +1,5 @@
 import React, { useRef, useCallback } from "react";
-import CarouselImage from "./CarouselImage";
+import CarouselItem from "./CarouselItem";
 import useResizeHandler from "../hooks/useResizeHandler";
 import useCycleIndex from "../hooks/useCycleIndex";
 
@@ -61,7 +61,7 @@ const ReactCarousel = ({
                 >
                     {containerWidth
                         ? children.map((element, index) => (
-                              <CarouselImage
+                              <CarouselItem
                                   key={index}
                                   index={index}
                                   selectedItemIndex={selectedIndex}
@@ -73,7 +73,7 @@ const ReactCarousel = ({
                                   maxHeight={calculateMaxHeight()}
                               >
                                   {element}
-                              </CarouselImage>
+                              </CarouselItem>
                           ))
                         : null}
                 </div>

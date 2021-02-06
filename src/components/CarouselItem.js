@@ -13,7 +13,7 @@ import {
     getSpringConfig,
 } from "../animation/animationProperties";
 
-const CarouselImage = ({
+const CarouselItem = ({
     children,
     index,
     selectedItemIndex,
@@ -73,4 +73,4 @@ const CarouselImage = ({
     );
 };
 
-export default CarouselImage;
+export default CarouselItem;
