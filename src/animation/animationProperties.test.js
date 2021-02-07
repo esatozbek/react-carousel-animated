@@ -1,5 +1,6 @@
 import { left } from "./animationProperties";
 import { BEFORE, CENTER, AFTER } from "../constants/animationConstants";
+import AnimationProperties from "./animationProperties2";
 
 describe("Animation left properties test", () => {
     it("After test with 1 diff", () => {
@@ -58,5 +59,14 @@ describe("Animation left properties test", () => {
 
         const result = left[BEFORE](containerWidth, diff, imageWidth);
         expect(result).toBe(`${-2400}px`);
+    });
+});
+
+describe("Animation properties test", () => {
+    it("Defult state", () => {
+        const anim = new AnimationProperties();
+        console.log(anim.properties);
+        console.log(anim.properties["zIndex"]["CENTER"]());
+        console.log(anim.properties["transform"]["rotateY"]);
     });
 });

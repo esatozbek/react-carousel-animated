@@ -16,6 +16,7 @@ const ReactCarousel = ({
     itemMaxHeight,
     prevButtonText,
     nextButtonText,
+    animationFlags,
 }) => {
     const containerRef = useRef(null);
     const [containerWidth, containerHeight] = useResizeHandler(containerRef);
@@ -71,6 +72,7 @@ const ReactCarousel = ({
                                   itemBackgroundStyle={itemBackgroundStyle}
                                   maxWidth={calculateMaxWidth()}
                                   maxHeight={calculateMaxHeight()}
+                                  animationFlags={animationFlags}
                               >
                                   {element}
                               </CarouselItem>
