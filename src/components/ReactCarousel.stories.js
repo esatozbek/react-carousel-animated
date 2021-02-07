@@ -80,6 +80,89 @@ export const CarouselInDiv = ({
     );
 };
 
+export const CarouselWithDivItems = ({
+    springConfig,
+    width,
+    itemMaxWidth,
+    itemMaxHeight,
+}) => {
+    return (
+        <div style={{ width }}>
+            <ReactCarousel
+                springConfig={springConfig}
+                itemBackgroundStyle={{
+                    borderRadius: "20px",
+                    boxShadow: "0 7px 20px 2px rgb(150, 170, 180)",
+                    margin: "1rem",
+                }}
+                itemMaxWidth={itemMaxWidth || 50}
+                itemMaxHeight={`${itemMaxHeight || 500}px`}
+            >
+                {[0, 1, 2, 3, 4].map((index) => (
+                    <div
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "2.5rem",
+                            backgroundColor: "white",
+                            height: "500px",
+                            width: "500px",
+                        }}
+                    >
+                        {index}
+                    </div>
+                ))}
+            </ReactCarousel>
+        </div>
+    );
+};
+
+export const CarouselWithSmallItems = ({
+    springConfig,
+    width,
+    itemMaxWidth,
+    itemMaxHeight,
+}) => {
+    return (
+        <div style={{ width }}>
+            <ReactCarousel
+                springConfig={springConfig}
+                itemBackgroundStyle={{
+                    borderRadius: "10px",
+                    border: "3px solid black",
+                    overflow: "auto",
+                }}
+                itemMaxWidth={itemMaxWidth || 50}
+                itemMaxHeight={`${itemMaxHeight || 500}px`}
+                animationFlags={{
+                    zIndex: false,
+                    filter: false,
+                    left: true,
+                    top: true,
+                    transform: true,
+                }}
+            >
+                {[0, 1, 2, 3, 4].map((index) => (
+                    <div
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "2.5rem",
+                            backgroundColor: "white",
+                            height: "50px",
+                            width: "50px",
+                        }}
+                    >
+                        {index}
+                    </div>
+                ))}
+            </ReactCarousel>
+        </div>
+    );
+};
+
 export const CarouselWithStyle = ({
     springConfig,
     imagesIndex,
@@ -109,7 +192,16 @@ export const CarouselWithStyle = ({
                 itemMaxHeight={`${itemMaxHeight || 500}px`}
             >
                 {images[imagesIndex || 0].map((image, index) => (
-                    <img key={index} src={image.src} alt="test" />
+                    <img
+                        key={index}
+                        src={image.src}
+                        alt="test"
+                        style={{
+                            borderRadius: "20px",
+                            boxShadow: "0 7px 20px 2px rgb(150, 170, 180)",
+                            margin: "1rem",
+                        }}
+                    />
                 ))}
             </ReactCarousel>
         </div>
