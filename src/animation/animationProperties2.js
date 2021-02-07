@@ -1,5 +1,4 @@
 import { config } from "react-spring";
-import { subV } from "react-use-gesture";
 import { BEFORE, CENTER, AFTER } from "../constants/animationConstants";
 
 export const rotateY = {
@@ -51,7 +50,7 @@ export const brightness = {
     [BEFORE]: () => "brightness(0.32)",
 };
 
-const filter = {
+export const filter = {
     brightness,
 };
 
@@ -97,29 +96,8 @@ function isObject(obj) {
     return typeof obj === "object";
 }
 
-export function getAnimationProperties(
-    positionName,
-    animationFlags,
-    containerWidth,
-    indexDiff,
-    imageWidth
-) {
-    const animationProperties = {
-        transform: `${rotateY[positionName]} ${translateX[positionName]} ${translateY[positionName]}`,
-        zIndex: zIndex[positionName],
-        left: left[positionName](containerWidth, indexDiff, imageWidth),
-        top: top[positionName],
-        filter: brightness[positionName],
-    };
-
-    return Object.keys(animationFlags)
-        .filter((key) => animationFlags[key])
-        .reduce((acc, key) => {
-            return {
-                ...acc,
-                [key]: animationProperties[key],
-            };
-        });
+function hasKeys(obj, ...keys) {
+    return Object.keys(obj).every((key) => keys.includes(key));
 }
 
 function convertPropertiesToValues(properties, values) {
@@ -127,6 +105,10 @@ function convertPropertiesToValues(properties, values) {
         .filter((key) => properties[key])
         .map((key) => {
             if (isObject(properties[key])) {
+                if (hasKeys(properties[key], AFTER, BEFORE, CENTER)) {
+                    console.log(properties[key]);
+                    return { [key]: properties[key] };
+                }
                 const subValue = convertPropertiesToValues(properties[key], values[key]);
 
                 return { [key]: subValue };
@@ -139,56 +121,51 @@ function convertPropertiesToValues(properties, values) {
 
 export default class AnimationProperties {
     constructor(customAnimationProperties) {
-        this._properties = {
+        const animationFlags = {
             ...defaultAnimationFlags,
             ...customAnimationProperties,
         };
 
-        // this._properties = Object.keys(this._properties)
-        //     .filter((key) => this._properties[key])
-        //     .map((key) => {
-        //         if (isObject(this._properties[key])) {
-        //             const subValue = Object.keys(this._properties[key])
-        //                 .filter((subKey) => this._properties[key][subKey])
-        //                 .map((subKey) => {
-        //                     if (isObject(this._properties[key][subKey])) {
-        //                         return { [subKey]: this._properties[key][subKey] };
-        //                     }
-
-        //                     return { [subKey]: defaultAnimationValues[key][subKey] };
-        //                 })
-        //                 .reduce((acc, obj) => ({ ...acc, ...obj }));
-
-        //             return { [key]: subValue };
-        //         }
-
-        //         return { [key]: defaultAnimationValues[key] };
-        //     })
-        //     .reduce((acc, obj) => ({ ...acc, ...obj }));
         this._properties = convertPropertiesToValues(
-            this._properties,
+            animationFlags,
             defaultAnimationValues
         );
     }
 
-    get properties() {
-        return this._properties;
+    getValues(positionName, containerWidth, diff, imageWidth) {
+        return {
+            ...(this._properties.transform && {
+                transform: this.transform[positionName](containerWidth, diff, imageWidth),
+            }),
+            ...(this._properties.zIndex && {
+                zIndex: this.zIndex[positionName](containerWidth, diff, imageWidth),
+            }),
+            ...(this._properties.left && {
+                left: this.left[positionName](containerWidth, diff, imageWidth),
+            }),
+            ...(this._properties.top && {
+                top: this.top[positionName](containerWidth, diff, imageWidth),
+            }),
+            ...(this._properties.filter && {
+                filter: this.filter[positionName](containerWidth, diff, imageWidth),
+            }),
+        };
     }
 
-    transform(positionName) {
-        if (!this._properties.transform) {
-            return null;
-        } else if (isObject(this._properties.transform)) {
-            const transformValue = Object.keys(this._properties.transform)
-                .filter((key) => this._properties[key])
-                .map((key) => transform[key][positionName])
+    nestedPropertyWrapper(property, position) {
+        return function (containerWidth, diff, imageWidth) {
+            return Object.keys(property)
+                .map((key) => property[key][position])
+                .map((valueFunc) => valueFunc(containerWidth, diff, imageWidth))
                 .join(" ");
+        };
+    }
 
-            return { transform: transformValue };
-        }
-
+    get transform() {
         return {
-            transform: `${rotateY[positionName]} ${translateX[positionName]} ${translateY[positionName]}`,
+            [AFTER]: this.nestedPropertyWrapper(this._properties.transform, AFTER),
+            [CENTER]: this.nestedPropertyWrapper(this._properties.transform, CENTER),
+            [BEFORE]: this.nestedPropertyWrapper(this._properties.transform, BEFORE),
         };
     }
 
@@ -205,6 +182,10 @@ export default class AnimationProperties {
     }
 
     get filter() {
-        return this._properties.brightness;
+        return {
+            [AFTER]: this.nestedPropertyWrapper(this._properties.filter, AFTER),
+            [CENTER]: this.nestedPropertyWrapper(this._properties.filter, CENTER),
+            [BEFORE]: this.nestedPropertyWrapper(this._properties.filter, BEFORE),
+        };
     }
 }
