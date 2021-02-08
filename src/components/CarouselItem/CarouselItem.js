@@ -10,8 +10,9 @@ import {
     left,
     top,
     brightness,
-    getSpringConfig,
 } from "../../animation/animationProperties";
+import { getSpringConfig } from "../../animation/animationConfig";
+import CarouselAnimation from "../../animation/CarouselAnimation";
 
 const CarouselItem = ({
     children,
@@ -27,18 +28,18 @@ const CarouselItem = ({
     const imageRef = useRef(null);
     const [position, setPosition] = useState({});
     const [imageWidth] = useResizeHandler(imageRef);
+    const carouselAnimation = useRef(new CarouselAnimation());
 
     const getSpringPosition = useCallback(() => {
         const positionName = getPositionName(index, selectedItemIndex);
         const indexDiff = selectedItemIndex - index;
 
-        return {
-            transform: `${rotateY[positionName]} ${translateX[positionName]} ${translateY[positionName]}`,
-            zIndex: zIndex[positionName],
-            left: left[positionName](containerWidth, indexDiff, imageWidth),
-            top: top[positionName],
-            filter: brightness[positionName],
-        };
+        return carouselAnimation.current.getValues(
+            positionName,
+            containerWidth,
+            indexDiff,
+            imageWidth
+        );
     }, [containerWidth, imageWidth, index, selectedItemIndex]);
 
     useLayoutEffect(() => {
@@ -54,6 +55,7 @@ const CarouselItem = ({
 
     const Element = Children.only(children);
     const { type: ElementType } = Element;
+
     return (
         <animated.div
             className={"carousel__container--img"}

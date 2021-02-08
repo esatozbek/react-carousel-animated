@@ -1,4 +1,4 @@
-import ReactCarousel from "./components/ReactCarousel";
+import ReactCarousel from "./components/ReactCarousel/ReactCarousel";
 import images from "./images";
 
 import "./styles/App.style.scss";
