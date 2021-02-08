@@ -11,13 +11,13 @@ import {
     top,
     brightness,
     getSpringConfig,
-} from "../animation/animationProperties";
-import { BEFORE, CENTER, AFTER } from "../constants/animationConstants";
-import images from "../images";
+} from "../../animation/animationProperties";
+import { BEFORE, CENTER, AFTER } from "../../constants/animationConstants";
+import images from "../../images";
 
 const mockUseSpring = jest.fn();
 
-jest.mock("../hooks/useResizeHandler", () => {
+jest.mock("../../hooks/useResizeHandler", () => {
     return () => {
         return [1000, 820];
     };

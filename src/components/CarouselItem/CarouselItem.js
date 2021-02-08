@@ -1,7 +1,7 @@
 import React, { useRef, useCallback, useState, useLayoutEffect, Children } from "react";
 import { useSpring, animated } from "react-spring";
-import useResizeHandler from "../hooks/useResizeHandler";
-import { getPositionName } from "../utils/utils";
+import useResizeHandler from "../../hooks/useResizeHandler";
+import { getPositionName } from "../../utils/utils";
 import {
     rotateY,
     translateX,
@@ -11,7 +11,7 @@ import {
     top,
     brightness,
     getSpringConfig,
-} from "../animation/animationProperties";
+} from "../../animation/animationProperties";
 
 const CarouselItem = ({
     children,
