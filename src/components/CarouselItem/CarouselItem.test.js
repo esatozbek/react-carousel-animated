@@ -10,8 +10,8 @@ import {
     left,
     top,
     brightness,
-    getSpringConfig,
 } from "../../animation/animationProperties";
+import { getSpringConfig } from "../../animation/animationConfig";
 import { BEFORE, CENTER, AFTER } from "../../constants/animationConstants";
 import images from "../../images";
 
@@ -55,11 +55,13 @@ describe("Carousel image tests", () => {
         expect(mockUseSpring).toBeCalledWith({ config: getSpringConfig() });
         expect(mockUseSpring).toBeCalledWith({
             config: getSpringConfig(),
-            transform: `${rotateY[CENTER]} ${translateX[CENTER]} ${translateY[CENTER]}`,
-            zIndex: zIndex[CENTER],
+            transform: `${rotateY[CENTER]()} ${translateX[CENTER]()} ${translateY[
+                CENTER
+            ]()}`,
+            zIndex: zIndex[CENTER](),
             left: left[CENTER](1500, 0, 1000),
-            top: top[CENTER],
-            filter: brightness[CENTER],
+            top: top[CENTER](),
+            filter: brightness[CENTER](),
         });
     });
 
@@ -74,11 +76,13 @@ describe("Carousel image tests", () => {
         expect(mockUseSpring).toBeCalledWith({ config: getSpringConfig() });
         expect(mockUseSpring).toBeCalledWith({
             config: getSpringConfig(),
-            transform: `${rotateY[BEFORE]} ${translateX[BEFORE]} ${translateY[BEFORE]}`,
-            zIndex: zIndex[BEFORE],
+            transform: `${rotateY[BEFORE]()} ${translateX[BEFORE]()} ${translateY[
+                BEFORE
+            ]()}`,
+            zIndex: zIndex[BEFORE](),
             left: left[BEFORE](1500, 1, 1000),
-            top: top[BEFORE],
-            filter: brightness[BEFORE],
+            top: top[BEFORE](),
+            filter: brightness[BEFORE](),
         });
     });
 
@@ -93,11 +97,13 @@ describe("Carousel image tests", () => {
         expect(mockUseSpring).toBeCalledWith({ config: getSpringConfig() });
         expect(mockUseSpring).toBeCalledWith({
             config: getSpringConfig(),
-            transform: `${rotateY[AFTER]} ${translateX[AFTER]} ${translateY[AFTER]}`,
-            zIndex: zIndex[AFTER],
+            transform: `${rotateY[AFTER]()} ${translateX[AFTER]()} ${translateY[
+                AFTER
+            ]()}`,
+            zIndex: zIndex[AFTER](),
             left: left[AFTER](1500, -1, 1000),
-            top: top[AFTER],
-            filter: brightness[AFTER],
+            top: top[AFTER](),
+            filter: brightness[AFTER](),
         });
     });
 });
