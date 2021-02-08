@@ -6,10 +6,6 @@ function numberToPx(num) {
     return `${num}px`;
 }
 
-function numberToPercent(num) {
-    return `${num}%`;
-}
-
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     title: "CarouselItem",
