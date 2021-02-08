@@ -1,6 +1,6 @@
 import React from "react";
 import CarouselItem from "./CarouselItem";
-import images from "../images";
+import images from "../../images";
 
 function numberToPx(num) {
     return `${num}px`;

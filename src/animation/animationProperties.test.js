@@ -67,10 +67,11 @@ describe("Animation left properties test", () => {
 });
 
 describe("Animation properties test", () => {
+    const containerWidth = 1500;
+    const diff = 1;
+    const imageWidth = 150;
+
     it("Defult state", () => {
-        const containerWidth = 1500;
-        const diff = 1;
-        const imageWidth = 150;
         const anim = new AnimationProperties();
         const result = anim.getValues([AFTER], 1500, 1, 150);
 
@@ -84,9 +85,6 @@ describe("Animation properties test", () => {
     });
 
     it("zIndex disabled", () => {
-        const containerWidth = 1500;
-        const diff = 1;
-        const imageWidth = 150;
         const anim = new AnimationProperties({
             zIndex: false,
         });
@@ -102,9 +100,6 @@ describe("Animation properties test", () => {
     });
 
     it("filter disabled", () => {
-        const containerWidth = 1500;
-        const diff = 1;
-        const imageWidth = 150;
         const anim = new AnimationProperties({
             zIndex: false,
             filter: false,
@@ -119,9 +114,6 @@ describe("Animation properties test", () => {
     });
 
     it("left disabled", () => {
-        const containerWidth = 1500;
-        const diff = 1;
-        const imageWidth = 150;
         const anim = new AnimationProperties({
             zIndex: false,
             filter: false,
@@ -137,9 +129,6 @@ describe("Animation properties test", () => {
     });
 
     it("transform disabled", () => {
-        const containerWidth = 1500;
-        const diff = 1;
-        const imageWidth = 150;
         const anim = new AnimationProperties({
             zIndex: false,
             filter: false,
@@ -147,8 +136,6 @@ describe("Animation properties test", () => {
             transform: false,
         });
         const result = anim.getValues([AFTER], 1500, 1, 150);
-
-        console.log(result);
 
         expect(result.zIndex).toBeUndefined();
         expect(result.top).toBe(top[AFTER](containerWidth, diff, imageWidth));
@@ -158,9 +145,6 @@ describe("Animation properties test", () => {
     });
 
     it("transform rotateY disabled", () => {
-        const containerWidth = 1500;
-        const diff = 1;
-        const imageWidth = 150;
         const anim = new AnimationProperties({
             zIndex: false,
             filter: false,
@@ -173,8 +157,6 @@ describe("Animation properties test", () => {
         });
         const result = anim.getValues([AFTER], 1500, 1, 150);
 
-        console.log(result);
-
         expect(result.zIndex).toBeUndefined();
         expect(result.top).toBe(top[AFTER](containerWidth, diff, imageWidth));
         expect(result.left).toBeUndefined();
@@ -183,9 +165,6 @@ describe("Animation properties test", () => {
     });
 
     it("transform rotateY and translateX disabled", () => {
-        const containerWidth = 1500;
-        const diff = 1;
-        const imageWidth = 150;
         const anim = new AnimationProperties({
             zIndex: false,
             filter: false,
@@ -198,8 +177,6 @@ describe("Animation properties test", () => {
         });
         const result = anim.getValues([AFTER], 1500, 1, 150);
 
-        console.log(result);
-
         expect(result.zIndex).toBeUndefined();
         expect(result.top).toBe(top[AFTER](containerWidth, diff, imageWidth));
         expect(result.left).toBeUndefined();
@@ -208,9 +185,6 @@ describe("Animation properties test", () => {
     });
 
     it("custom zIndex and transform values", () => {
-        const containerWidth = 1500;
-        const diff = 1;
-        const imageWidth = 150;
         const anim = new AnimationProperties({
             zIndex: {
                 [AFTER]: () => 2,
@@ -232,12 +206,33 @@ describe("Animation properties test", () => {
 
         const result = anim.getValues([AFTER], 1500, 1, 150);
 
-        console.log(result);
-
         expect(result.zIndex).toBe(2);
         expect(result.top).toBe(top[AFTER](containerWidth, diff, imageWidth));
         expect(result.left).toBeUndefined();
         expect(result.filter).toBeUndefined();
         expect(result.transform).toBe("rotateY(3deg) translateY(-50%)");
+    });
+
+    it("custom zIndex and transform values with defaults", () => {
+        const anim = new AnimationProperties({
+            zIndex: false,
+            transform: {
+                rotateY: {
+                    [AFTER]: () => "rotateY(3deg)",
+                    [CENTER]: () => "rotateY(3deg)",
+                    [BEFORE]: () => "rotateY(3deg)",
+                },
+            },
+        });
+
+        const result = anim.getValues([AFTER], 1500, 1, 150);
+
+        expect(result.zIndex).toBeUndefined();
+        expect(result.top).toBe(top[AFTER](containerWidth, diff, imageWidth));
+        expect(result.left).toBe(left[AFTER](containerWidth, diff, imageWidth));
+        expect(result.filter).toBe(
+            filter.brightness[AFTER](containerWidth, diff, imageWidth)
+        );
+        expect(result.transform).toBe("rotateY(3deg) translateX(0%) translateY(-50%)");
     });
 });

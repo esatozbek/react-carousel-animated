@@ -1,9 +1,9 @@
 import React from "react";
 import ReactCarousel from "./ReactCarousel";
 import { render, fireEvent } from "@testing-library/react";
-import images from "../images";
+import images from "../../images";
 
-jest.mock("../hooks/useResizeHandler", () => {
+jest.mock("../../hooks/useResizeHandler", () => {
     return () => {
         return [1000, 820];
     };

@@ -1,9 +1,9 @@
 import React, { useRef, useCallback } from "react";
-import CarouselItem from "./CarouselItem";
-import useResizeHandler from "../hooks/useResizeHandler";
-import useCycleIndex from "../hooks/useCycleIndex";
+import CarouselItem from "../CarouselItem/CarouselItem";
+import useResizeHandler from "../../hooks/useResizeHandler";
+import useCycleIndex from "../../hooks/useCycleIndex";
 
-import "../styles/ReactCarousel.style.scss";
+import "../../styles/ReactCarousel.style.scss";
 
 const ReactCarousel = ({
     children,

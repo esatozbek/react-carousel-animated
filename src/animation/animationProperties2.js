@@ -106,7 +106,6 @@ function convertPropertiesToValues(properties, values) {
         .map((key) => {
             if (isObject(properties[key])) {
                 if (hasKeys(properties[key], AFTER, BEFORE, CENTER)) {
-                    console.log(properties[key]);
                     return { [key]: properties[key] };
                 }
                 const subValue = convertPropertiesToValues(properties[key], values[key]);
@@ -119,12 +118,36 @@ function convertPropertiesToValues(properties, values) {
         .reduce((acc, obj) => ({ ...acc, ...obj }));
 }
 
+function combineObjects(defaultObj, customObj) {
+    if (!customObj) {
+        return defaultObj;
+    }
+
+    return Object.keys(defaultObj)
+        .filter((key) => customObj[key] !== false)
+        .map((key) => {
+            if (isObject(defaultObj[key])) {
+                return { [key]: { ...defaultObj[key], ...customObj[key] } };
+            }
+
+            return customObj[key] !== undefined
+                ? { [key]: customObj[key] }
+                : { [key]: defaultObj[key] };
+        })
+        .reduce((acc, obj) => ({ ...acc, ...obj }));
+}
+
 export default class AnimationProperties {
     constructor(customAnimationProperties) {
-        const animationFlags = {
-            ...defaultAnimationFlags,
-            ...customAnimationProperties,
-        };
+        // const animationFlags = {
+        //     ...defaultAnimationFlags,
+        //     ...customAnimationProperties,
+        // };
+
+        const animationFlags = combineObjects(
+            defaultAnimationFlags,
+            customAnimationProperties
+        );
 
         this._properties = convertPropertiesToValues(
             animationFlags,

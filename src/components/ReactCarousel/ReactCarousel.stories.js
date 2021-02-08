@@ -1,6 +1,6 @@
 import React from "react";
 import ReactCarousel from "./ReactCarousel";
-import images from "../images";
+import images from "../../images";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
