@@ -1,16 +1,7 @@
 import React, { useRef, useCallback, useState, useLayoutEffect, Children } from "react";
 import { useSpring, animated } from "react-spring";
 import useResizeHandler from "../../hooks/useResizeHandler";
-import { getPositionName } from "../../utils/utils";
-import {
-    rotateY,
-    translateX,
-    translateY,
-    zIndex,
-    left,
-    top,
-    brightness,
-} from "../../animation/animationProperties";
+import { getPositionName } from "../../utils/animationUtils";
 import { getSpringConfig } from "../../animation/animationConfig";
 import CarouselAnimation from "../../animation/CarouselAnimation";
 
@@ -24,11 +15,12 @@ const CarouselItem = ({
     itemBackgroundStyle,
     maxWidth,
     maxHeight,
+    carouselConfig,
 }) => {
     const imageRef = useRef(null);
     const [position, setPosition] = useState({});
     const [imageWidth] = useResizeHandler(imageRef);
-    const carouselAnimation = useRef(new CarouselAnimation());
+    const carouselAnimation = useRef(new CarouselAnimation(carouselConfig));
 
     const getSpringPosition = useCallback(() => {
         const positionName = getPositionName(index, selectedItemIndex);
@@ -58,7 +50,7 @@ const CarouselItem = ({
 
     return (
         <animated.div
-            className={"carousel__container--img"}
+            className={"carousel__container--item"}
             style={{ ...animationProps, ...itemBackgroundStyle }}
             ref={imageRef}
             data-testid="container"

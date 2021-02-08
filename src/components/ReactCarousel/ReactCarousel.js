@@ -6,12 +6,12 @@ import useCycleIndex from "../../hooks/useCycleIndex";
 import "../../styles/ReactCarousel.style.scss";
 
 const ReactCarousel = ({
+    carouselConfig,
     children,
     springConfig,
     containerStyle,
     containerBackgroundStyle,
     itemBackgroundStyle,
-    itemStyle,
     itemMaxWidth,
     itemMaxHeight,
     prevButtonText,
@@ -45,55 +45,54 @@ const ReactCarousel = ({
     }, [containerHeight, itemMaxHeight]);
 
     return (
-        <div className="container">
-            <div className="carousel">
-                <div className="background" style={{ ...containerBackgroundStyle }} />
-                <button
-                    className="btn btn-border carousel__prev"
-                    onClick={handlePrev}
-                    data-testid="prev"
-                >
-                    {prevButtonText}
-                </button>
-                <div
-                    className="carousel__container"
-                    ref={containerRef}
-                    style={{ height: calculateMaxHeight(), ...containerStyle }}
-                >
-                    {containerWidth
-                        ? children.map((element, index) => (
-                              <CarouselItem
-                                  key={index}
-                                  index={index}
-                                  selectedItemIndex={selectedIndex}
-                                  containerWidth={containerWidth}
-                                  containerHeight={containerHeight}
-                                  springConfig={springConfig}
-                                  itemBackgroundStyle={itemBackgroundStyle}
-                                  maxWidth={calculateMaxWidth()}
-                                  maxHeight={calculateMaxHeight()}
-                                  animationFlags={animationFlags}
-                              >
-                                  {element}
-                              </CarouselItem>
-                          ))
-                        : null}
-                </div>
-                <button
-                    className="btn btn-border carousel__next"
-                    onClick={handleNext}
-                    data-testid="next"
-                >
-                    {nextButtonText}
-                </button>
-                <div className="carousel__container--index">
-                    {children.map((_, index) => (
-                        <span
-                            key={`${index}dot`}
-                            className={`${index === selectedIndex && "selected"}`}
-                        ></span>
-                    ))}
-                </div>
+        <div className="carousel" style={{ ...containerStyle }}>
+            <div className="background" style={{ ...containerBackgroundStyle }} />
+            <button
+                className="btn btn-border carousel__prev"
+                onClick={handlePrev}
+                data-testid="prev"
+            >
+                {prevButtonText}
+            </button>
+            <div
+                className="carousel__container"
+                ref={containerRef}
+                style={{ height: calculateMaxHeight() }}
+            >
+                {containerWidth
+                    ? children.map((element, index) => (
+                          <CarouselItem
+                              key={index}
+                              index={index}
+                              selectedItemIndex={selectedIndex}
+                              containerWidth={containerWidth}
+                              containerHeight={containerHeight}
+                              springConfig={springConfig}
+                              itemBackgroundStyle={itemBackgroundStyle}
+                              maxWidth={calculateMaxWidth()}
+                              maxHeight={calculateMaxHeight()}
+                              animationFlags={animationFlags}
+                              carouselConfig={carouselConfig}
+                          >
+                              {element}
+                          </CarouselItem>
+                      ))
+                    : null}
+            </div>
+            <button
+                className="btn btn-border carousel__next"
+                onClick={handleNext}
+                data-testid="next"
+            >
+                {nextButtonText}
+            </button>
+            <div className="carousel__container--index">
+                {children.map((_, index) => (
+                    <span
+                        key={`${index}dot`}
+                        className={`${index === selectedIndex && "selected"}`}
+                    ></span>
+                ))}
             </div>
         </div>
     );

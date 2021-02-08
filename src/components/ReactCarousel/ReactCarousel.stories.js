@@ -89,6 +89,12 @@ export const CarouselWithDivItems = ({
     return (
         <div style={{ width }}>
             <ReactCarousel
+                carouselConfig={{
+                    transform: {
+                        rotateY: false,
+                    },
+                    filter: false,
+                }}
                 springConfig={springConfig}
                 itemBackgroundStyle={{
                     borderRadius: "20px",
@@ -127,6 +133,11 @@ export const CarouselWithSmallItems = ({
     return (
         <div style={{ width }}>
             <ReactCarousel
+                carouselConfig={{
+                    transform: {
+                        rotateY: false,
+                    },
+                }}
                 springConfig={springConfig}
                 itemBackgroundStyle={{
                     borderRadius: "10px",
