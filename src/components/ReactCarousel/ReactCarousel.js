@@ -17,6 +17,7 @@ const ReactCarousel = ({
     prevButtonText,
     nextButtonText,
     animationFlags,
+    showIndices,
 }) => {
     const containerRef = useRef(null);
     const [containerWidth, containerHeight] = useResizeHandler(containerRef);
@@ -86,14 +87,16 @@ const ReactCarousel = ({
             >
                 {nextButtonText}
             </button>
-            <div className="carousel__container--index">
-                {children.map((_, index) => (
-                    <span
-                        key={`${index}dot`}
-                        className={`${index === selectedIndex && "selected"}`}
-                    ></span>
-                ))}
-            </div>
+            {showIndices && (
+                <div className="carousel__container--index">
+                    {children.map((_, index) => (
+                        <span
+                            key={`${index}dot`}
+                            className={`${index === selectedIndex && "selected"}`}
+                        ></span>
+                    ))}
+                </div>
+            )}
         </div>
     );
 };

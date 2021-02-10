@@ -96,11 +96,6 @@ export const CarouselWithDivItems = ({
                     filter: false,
                 }}
                 springConfig={springConfig}
-                itemBackgroundStyle={{
-                    borderRadius: "20px",
-                    boxShadow: "0 7px 20px 2px rgb(150, 170, 180)",
-                    margin: "1rem",
-                }}
                 itemMaxWidth={itemMaxWidth || 50}
                 itemMaxHeight={`${itemMaxHeight || 500}px`}
             >
@@ -114,6 +109,9 @@ export const CarouselWithDivItems = ({
                             backgroundColor: "white",
                             height: "500px",
                             width: "500px",
+                            borderRadius: "20px",
+                            boxShadow: "0 7px 20px 2px rgb(150, 170, 180)",
+                            margin: "1rem",
                         }}
                     >
                         {index}
