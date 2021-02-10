@@ -20,26 +20,28 @@
         }
 
         &--index {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: absolute;
-            bottom: 27px;
+            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
 
             & span {
+                z-index: 11;
                 display: inline-block;
-                background-color: white;
-                height: 8px;
-                width: 8px;
+                background-color: darken(white, 10);
+                height: 10px;
+                width: 10px;
                 border-radius: 100%;
                 transition: 0.5s ease;
-                opacity: 0.3;
+                opacity: 0.7;
+                margin: 4px;
 
                 &.selected {
+                    background-color: white;
                     opacity: 1;
-                }
-
-                &:not(:last-child) {
-                    margin-right: 8px;
                 }
             }
         }
