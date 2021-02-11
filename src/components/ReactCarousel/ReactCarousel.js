@@ -13,7 +13,7 @@ const ReactCarousel = ({
     containerBackgroundStyle,
     itemBackgroundStyle,
     itemMaxWidth,
-    itemMaxHeight,
+    carouselHeight,
     prevButtonText,
     nextButtonText,
     animationFlags,
@@ -40,10 +40,10 @@ const ReactCarousel = ({
 
     const calculateMaxHeight = useCallback(() => {
         if (typeof itemMaxHeight === "number") {
-            return `${(containerHeight * itemMaxHeight) / 100}px`;
+            return `${(containerHeight * carouselHeight) / 100}px`;
         }
-        return itemMaxHeight;
-    }, [containerHeight, itemMaxHeight]);
+        return carouselHeight;
+    }, [containerHeight, carouselHeight]);
 
     return (
         <div className="carousel" style={{ ...containerStyle }}>
@@ -100,5 +100,7 @@ const ReactCarousel = ({
         </div>
     );
 };
+
+export { CarouselItem };
 
 export default ReactCarousel;
