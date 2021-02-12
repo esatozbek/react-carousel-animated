@@ -10,11 +10,8 @@ const CarouselItem = ({
     index,
     selectedItemIndex,
     containerWidth,
-    containerHeight,
     springConfig,
     itemBackgroundStyle,
-    maxWidth,
-    maxHeight,
     carouselConfig,
 }) => {
     const imageRef = useRef(null);
@@ -59,8 +56,6 @@ const CarouselItem = ({
                 {...Element.props}
                 style={{
                     ...Element.props.style,
-                    maxWidth,
-                    maxHeight,
                 }}
             />
         </animated.div>

@@ -1,17 +1,40 @@
 {
     "name": "react-carousel",
+    "description": "Carousel component for visualizing components",
+    "keywords": [
+        "react",
+        "spring",
+        "animation",
+        "image",
+        "carousel",
+        "slider",
+        ""
+    ],
+    "bugs": {
+        "url": "https://github.com/esatozbek/react-carousel/issues"
+    },
+    "author": {
+        "name": "Esat Ozbek",
+        "email": "esatozbek@gmail.com",
+        "url": "https://github.com/esatozbek/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/esatozbek/react-carousel/"
+    },
+    "license": "MIT",
     "version": "0.1.0",
     "private": false,
     "main": "dist/ReactCarousel.cjs.js",
     "module": "dist/ReactCarousel.esm.js",
-    "source": "src/components/ReactCarousel/ReactCarousel.js",
+    "source": "src/index.js",
     "dependencies": {
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1",
         "react-scripts": "4.0.1",
         "react-spring": "^8.0.27"
     },
     "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "publish": "NODE_ENV=production rollup -c",
@@ -36,10 +59,7 @@
             "last 1 safari version"
         ]
     },
-    "peerDependencies": {
-        "react": "^17.0.1",
-        "react-dom": "^17.0.1"
-    },
+    "peerDependencies": {},
     "devDependencies": {
         "@babel/cli": "^7.12.13",
         "@babel/core": "^7.12.13",

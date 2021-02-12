@@ -631,4 +631,4 @@ var ReactCarousel = function ReactCarousel(_ref) {
 };
 
 export default ReactCarousel;
-export { CarouselItem };
+export { AFTER, BEFORE, CENTER };

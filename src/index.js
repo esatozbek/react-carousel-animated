@@ -1,10 +1,5 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
+import ReactCarousel from "./components/ReactCarousel/ReactCarousel";
+import { BEFORE, CENTER, AFTER } from "./constants/animationConstants";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+export { BEFORE, CENTER, AFTER };
+export default ReactCarousel;
