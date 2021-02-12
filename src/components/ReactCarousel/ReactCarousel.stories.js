@@ -17,7 +17,7 @@ export default {
             control: {
                 type: "range",
                 min: 0,
-                max: 10,
+                max: 5,
             },
         },
         width: {
@@ -27,14 +27,7 @@ export default {
                 max: 2000,
             },
         },
-        itemMaxWidth: {
-            control: {
-                type: "range",
-                min: 0,
-                max: 100,
-            },
-        },
-        itemMaxHeight: {
+        carouselHeight: {
             control: {
                 type: "range",
                 min: 0,
@@ -44,48 +37,35 @@ export default {
     },
 };
 
-export const Carousel = ({ springConfig, imagesIndex, itemMaxWidth, itemMaxHeight }) => {
+export const Carousel = ({ springConfig, imagesIndex, carouselHeight }) => {
     return (
         <ReactCarousel
             springConfig={springConfig}
-            itemMaxWidth={itemMaxWidth || 50}
-            itemMaxHeight={`${itemMaxHeight || 500}px`}
+            carouselHeight={`${carouselHeight || 500}px`}
         >
             {images[imagesIndex || 0].map((image) => (
-                <img src={image.src} alt="test" />
+                <img src={image.src} alt="test" style={{ maxHeight: "500px" }} />
             ))}
         </ReactCarousel>
     );
 };
 
-export const CarouselInDiv = ({
-    springConfig,
-    imagesIndex,
-    width,
-    itemMaxWidth,
-    itemMaxHeight,
-}) => {
+export const CarouselInDiv = ({ springConfig, imagesIndex, width, carouselHeight }) => {
     return (
         <div style={{ width }}>
             <ReactCarousel
                 springConfig={springConfig}
-                itemMaxWidth={itemMaxWidth || 50}
-                itemMaxHeight={`${itemMaxHeight || 500}px`}
+                carouselHeight={`${carouselHeight || 600}px`}
             >
                 {images[imagesIndex || 0].map((image) => (
-                    <img src={image.src} alt="test" />
+                    <img src={image.src} alt="test" style={{ maxHeight: "500px" }} />
                 ))}
             </ReactCarousel>
         </div>
     );
 };
 
-export const CarouselWithDivItems = ({
-    springConfig,
-    width,
-    itemMaxWidth,
-    itemMaxHeight,
-}) => {
+export const CarouselWithDivItems = ({ springConfig, width, carouselHeight }) => {
     return (
         <div style={{ width }}>
             <ReactCarousel
@@ -96,15 +76,14 @@ export const CarouselWithDivItems = ({
                     filter: false,
                 }}
                 springConfig={springConfig}
-                itemMaxWidth={itemMaxWidth || 50}
-                itemMaxHeight={`${itemMaxHeight || 500}px`}
+                carouselHeight={`${carouselHeight || 600}px`}
             >
                 {[0, 1, 2, 3, 4].map((index) => (
                     <div
                         style={{
                             display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
+                            flexDirection: "column",
+                            overflow: "hidden",
                             fontSize: "2.5rem",
                             backgroundColor: "white",
                             height: "500px",
@@ -114,7 +93,12 @@ export const CarouselWithDivItems = ({
                             margin: "1rem",
                         }}
                     >
-                        {index}
+                        <img
+                            src={images[2][index].src}
+                            alt=""
+                            style={{ width: "100%" }}
+                        />
+                        Lorem ipsum dolor sit amet
                     </div>
                 ))}
             </ReactCarousel>
@@ -122,12 +106,38 @@ export const CarouselWithDivItems = ({
     );
 };
 
-export const CarouselWithSmallItems = ({
-    springConfig,
-    width,
-    itemMaxWidth,
-    itemMaxHeight,
-}) => {
+export const SentenceItems = ({ springConfig, width, carouselHeight }) => {
+    return (
+        <div style={{ width }}>
+            <ReactCarousel
+                carouselConfig={{
+                    transform: {
+                        rotateY: false,
+                    },
+                }}
+                containerBackgroundStyle={{
+                    backgroundColor: "#282c34",
+                }}
+                springConfig={springConfig}
+                carouselHeight={`${carouselHeight || 600}px`}
+            >
+                {["Lorem", "ipsum", "dolor", "sit", "amet"].map((word) => (
+                    <div
+                        style={{
+                            color: "white",
+                            fontSize: "2.5rem",
+                            margin: "1rem",
+                        }}
+                    >
+                        {word}
+                    </div>
+                ))}
+            </ReactCarousel>
+        </div>
+    );
+};
+
+export const CarouselWithSmallItems = ({ springConfig, width, carouselHeight }) => {
     return (
         <div style={{ width }}>
             <ReactCarousel
@@ -142,8 +152,7 @@ export const CarouselWithSmallItems = ({
                     border: "3px solid black",
                     overflow: "auto",
                 }}
-                itemMaxWidth={itemMaxWidth || 50}
-                itemMaxHeight={`${itemMaxHeight || 500}px`}
+                carouselHeight={`${carouselHeight || 500}px`}
                 animationFlags={{
                     zIndex: false,
                     filter: false,
@@ -176,18 +185,12 @@ export const CarouselWithStyle = ({
     springConfig,
     imagesIndex,
     width,
-    itemMaxWidth,
-    itemMaxHeight,
+    carouselHeight,
 }) => {
     return (
         <div style={{ width }}>
             <ReactCarousel
                 springConfig={springConfig}
-                itemStyle={{
-                    borderRadius: "20px",
-                    boxShadow: "0 7px 20px 2px rgb(150, 170, 180)",
-                    margin: "1rem",
-                }}
                 itemBackgroundStyle={{
                     backgroundColor: "#ece4db",
                     borderRadius: "3px",
@@ -197,8 +200,7 @@ export const CarouselWithStyle = ({
                     filter: "blur(7px)",
                     backgroundColor: "rgba(62, 212, 214, 0.3)",
                 }}
-                itemMaxWidth={itemMaxWidth || 50}
-                itemMaxHeight={`${itemMaxHeight || 500}px`}
+                carouselHeight="600px"
             >
                 {images[imagesIndex || 0].map((image, index) => (
                     <img
@@ -206,6 +208,7 @@ export const CarouselWithStyle = ({
                         src={image.src}
                         alt="test"
                         style={{
+                            maxHeight: "500px",
                             borderRadius: "20px",
                             boxShadow: "0 7px 20px 2px rgb(150, 170, 180)",
                             margin: "1rem",

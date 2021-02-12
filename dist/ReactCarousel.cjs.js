@@ -638,5 +638,7 @@ var ReactCarousel = function ReactCarousel(_ref) {
   })));
 };
 
-exports.CarouselItem = CarouselItem;
+exports.AFTER = AFTER;
+exports.BEFORE = BEFORE;
+exports.CENTER = CENTER;
 exports.default = ReactCarousel;
