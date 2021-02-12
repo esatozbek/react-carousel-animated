@@ -15,7 +15,6 @@ const ReactCarousel = ({
     carouselHeight,
     prevButtonText,
     nextButtonText,
-    animationFlags,
     showIndices,
 }) => {
     const containerRef = useRef(null);
@@ -50,7 +49,6 @@ const ReactCarousel = ({
                               containerWidth={containerWidth}
                               springConfig={springConfig}
                               itemBackgroundStyle={itemBackgroundStyle}
-                              animationFlags={animationFlags}
                               carouselConfig={carouselConfig}
                           >
                               {element}
