@@ -1,33 +1,28 @@
 {
-    "name": "react-carousel",
-    "description": "Carousel component for visualizing components",
+    "name": "react-carousel-animated",
+    "version": "0.1.0",
+    "description": "Carousel component with spring animations",
+    "bugs": {
+        "url": "https://github.com/esatozbek/react-carousel/issues"
+    },
+    "author": "Esat Firat Ozbek <esatozbek@gmail.com>",
+    "repository": "https://github.com/esatozbek/react-carousel.git",
+    "license": "MIT",
+    "private": false,
     "keywords": [
         "react",
         "spring",
         "animation",
         "image",
         "carousel",
-        "slider",
-        ""
+        "slider"
     ],
-    "bugs": {
-        "url": "https://github.com/esatozbek/react-carousel/issues"
-    },
-    "author": {
-        "name": "Esat Ozbek",
-        "email": "esatozbek@gmail.com",
-        "url": "https://github.com/esatozbek/"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/esatozbek/react-carousel/"
-    },
-    "license": "MIT",
-    "version": "0.1.0",
-    "private": false,
+    "source": "src/index.js",
     "main": "dist/ReactCarousel.cjs.js",
     "module": "dist/ReactCarousel.esm.js",
-    "source": "src/index.js",
+    "files": [
+        "dist"
+    ],
     "dependencies": {
         "react": "^17.0.1",
         "react-dom": "^17.0.1",
@@ -45,18 +40,6 @@
         "extends": [
             "react-app",
             "react-app/jest"
-        ]
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
         ]
     },
     "peerDependencies": {},
@@ -86,9 +69,6 @@
         "sass-loader": "^10.1.1",
         "web-vitals": "^0.2.4"
     },
-    "files": [
-        "dist"
-    ],
     "babel": {
         "presets": [
             "@babel/env",
