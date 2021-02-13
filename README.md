@@ -1,6 +1,6 @@
-# React Animated Carousel
+# React Carousel Animated
 
-Yet another implementation of a carousel component for React. Powered with react-spring animations!
+Yet another implementation of a carousel component for React. This one is enchanced with react-spring animations!
 
 ## Installation
 
@@ -14,57 +14,54 @@ yarn add react-animated-carousel
 
 ## Usage
 
-```javascript
+```jsx
 import ReactCarousel, { AFTER, CENTER, BEFORE } from "react-carousel";
 import "react-carousel/dist/ReactCarousel.cjs.css";
 
-<div className="container">
-    <ReactCarousel
-        carouselConfig={{
-            transform: {
-                rotateY: {
-                    [BEFORE]: () => "rotateY(25deg)",
-                    [CENTER]: () => "rotateY(0deg)",
-                    [AFTER]: () => "rotateY(-25deg)",
-                },
+<ReactCarousel
+    carouselConfig={{
+        transform: {
+            rotateY: {
+                [BEFORE]: () => "rotateY(25deg)",
+                [CENTER]: () => "rotateY(0deg)",
+                [AFTER]: () => "rotateY(-25deg)",
             },
-        }}
-        containerStyle={{
-            padding: "50px 0",
-        }}
-        itemBackgroundStyle={{
-            backgroundColor: "#ece4db",
-            borderRadius: "3px",
-            boxShadow: "8px 12px 14px -6px black",
-        }}
-        containerBackgroundStyle={{
-            filter: "blur(7px)",
-            backgroundColor: "rgba(62, 212, 214, 0.3)",
-        }}
-        itemMaxWidth={50}
-        carouselHeight={500}
-    >
-        {images[0].map((image, index) => (
-            <img
-                key={index}
-                src={image.src}
-                alt="test"
-                style={{
-                    borderRadius: "20px",
-                    boxShadow: "0 7px 20px 2px rgb(150, 170, 180)",
-                    margin: "1rem",
-                }}
-            />
-        ))}
-    </ReactCarousel>
-</div>;
+        },
+    }}
+    containerStyle={{
+        padding: "50px 0",
+    }}
+    itemBackgroundStyle={{
+        backgroundColor: "#ece4db",
+        borderRadius: "3px",
+        boxShadow: "8px 12px 14px -6px black",
+    }}
+    containerBackgroundStyle={{
+        filter: "blur(7px)",
+        backgroundColor: "rgba(62, 212, 214, 0.3)",
+    }}
+    carouselHeight={500}
+>
+    {images.map((image, index) => (
+        <img
+            key={index}
+            src={image.src}
+            alt="test"
+            style={{
+                borderRadius: "20px",
+                boxShadow: "0 7px 20px 2px rgb(150, 170, 180)",
+                margin: "1rem",
+            }}
+        />
+    ))}
+</ReactCarousel>;
 ```
 
 ## Props
 
 ### carouselConfig
 
-Config object for carousel animations. Default is:
+Config object for carousel animations. Default animation properties are:
 
 ```javascript
 {
@@ -106,7 +103,10 @@ Config object for carousel animations. Default is:
 }
 ```
 
-If you just want to disable some animation properties, just override them with false value:
+Every animation property is a object with BEFORE, CENTER and AFTER properties. These properties are indicating position of component. BEFORE is left hand side of carousel, AFTER is right hand side of carousel and CENTER is center position of carousel.
+CSS properties which takes multiple arguments are represented with nested objects, like transform property above.
+
+To disable some animation properties, false value can be used:
 
 ```javascript
 carouselConfig={{
@@ -116,21 +116,23 @@ carouselConfig={{
 }}
 ```
 
-All other values will be inhereted from default values. Also, if you want to override some values, you can send a object with BEFORE, CENTER, AFTER function properties. These are indicating item's position and will be called with containerWidth, diff, imageWidth values.
+All other values which are not presented in config object will be inhereted from default animation properties.
+
+To override animation properties, an object with BEFORE, CENTER, AFTER properties should be set to value. These properties are a function that takes 3 arguments: containerWidth, diff, imageWidth.
 
 ```javascript
 carouselConfig={{
     transform: {
         rotateY: {
-                [AFTER]: () => "rotateY(3deg)",
-                [CENTER]: () => "rotateY(3deg)",
-                [BEFORE]: () => "rotateY(3deg)",
+                [AFTER]: (containerWidth, diff, imageWidth) => "rotateY(3deg)",
+                [CENTER]: (containerWidth, diff, imageWidth) => "rotateY(3deg)",
+                [BEFORE]: (containerWidth, diff, imageWidth) => "rotateY(3deg)",
         }
     },
 }}
 ```
 
-Again, other default properties will be used from default component. If you want to disable them all, config object should be look like this:
+A config object which disables all animation properties:
 
 ```javascript
 {
@@ -166,7 +168,7 @@ Style object for carousel container's background, which is a absolute positioned
 
 ### itemBackgroundStyle
 
-Style object for carousel item's background element, which is container for react-spring animations and items.
+Style object for carousel item's background element, which is container for react-spring animations.
 
 ### carouselHeight
 
