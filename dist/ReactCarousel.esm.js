@@ -430,12 +430,9 @@ var CarouselItem = function CarouselItem(_ref) {
   var children = _ref.children,
       index = _ref.index,
       selectedItemIndex = _ref.selectedItemIndex,
-      containerWidth = _ref.containerWidth;
-      _ref.containerHeight;
-      var springConfig = _ref.springConfig,
+      containerWidth = _ref.containerWidth,
+      springConfig = _ref.springConfig,
       itemBackgroundStyle = _ref.itemBackgroundStyle,
-      maxWidth = _ref.maxWidth,
-      maxHeight = _ref.maxHeight,
       carouselConfig = _ref.carouselConfig;
   var imageRef = useRef(null);
 
@@ -468,10 +465,7 @@ var CarouselItem = function CarouselItem(_ref) {
     ref: imageRef,
     "data-testid": "container"
   }, /*#__PURE__*/React.createElement(ElementType, _extends({}, Element.props, {
-    style: _objectSpread2(_objectSpread2({}, Element.props.style), {}, {
-      maxWidth: maxWidth,
-      maxHeight: maxHeight
-    })
+    style: _objectSpread2({}, Element.props.style)
   })));
 };
 
@@ -546,18 +540,15 @@ var ReactCarousel = function ReactCarousel(_ref) {
       containerStyle = _ref.containerStyle,
       containerBackgroundStyle = _ref.containerBackgroundStyle,
       itemBackgroundStyle = _ref.itemBackgroundStyle,
-      itemMaxWidth = _ref.itemMaxWidth,
       carouselHeight = _ref.carouselHeight,
       prevButtonText = _ref.prevButtonText,
       nextButtonText = _ref.nextButtonText,
-      animationFlags = _ref.animationFlags,
       showIndices = _ref.showIndices;
   var containerRef = useRef(null);
 
   var _useResizeHandler = useResizeHandler(containerRef),
-      _useResizeHandler2 = _slicedToArray(_useResizeHandler, 2),
-      containerWidth = _useResizeHandler2[0],
-      containerHeight = _useResizeHandler2[1];
+      _useResizeHandler2 = _slicedToArray(_useResizeHandler, 1),
+      containerWidth = _useResizeHandler2[0];
 
   var _useCycleIndex = useCycleIndex(children.length),
       selectedIndex = _useCycleIndex.index,
@@ -572,35 +563,21 @@ var ReactCarousel = function ReactCarousel(_ref) {
     prev();
   };
 
-  var calculateMaxWidth = useCallback(function () {
-    if (typeof itemMaxWidth === "number") {
-      return "".concat(containerWidth * itemMaxWidth / 100, "px");
-    }
-
-    return itemMaxWidth;
-  }, [containerWidth, itemMaxWidth]);
-  var calculateMaxHeight = useCallback(function () {
-    if (typeof itemMaxHeight === "number") {
-      return "".concat(containerHeight * carouselHeight / 100, "px");
-    }
-
-    return carouselHeight;
-  }, [containerHeight, carouselHeight]);
   return /*#__PURE__*/React.createElement("div", {
     className: "carousel",
     style: _objectSpread2({}, containerStyle)
   }, /*#__PURE__*/React.createElement("div", {
     className: "background",
     style: _objectSpread2({}, containerBackgroundStyle)
-  }), /*#__PURE__*/React.createElement("button", {
-    className: "btn btn-border carousel__prev",
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "carousel__prev",
     onClick: handlePrev,
     "data-testid": "prev"
   }, prevButtonText), /*#__PURE__*/React.createElement("div", {
     className: "carousel__container",
     ref: containerRef,
     style: {
-      height: calculateMaxHeight()
+      height: carouselHeight
     }
   }, containerWidth ? children.map(function (element, index) {
     return /*#__PURE__*/React.createElement(CarouselItem, {
@@ -608,16 +585,12 @@ var ReactCarousel = function ReactCarousel(_ref) {
       index: index,
       selectedItemIndex: selectedIndex,
       containerWidth: containerWidth,
-      containerHeight: containerHeight,
       springConfig: springConfig,
       itemBackgroundStyle: itemBackgroundStyle,
-      maxWidth: calculateMaxWidth(),
-      maxHeight: calculateMaxHeight(),
-      animationFlags: animationFlags,
       carouselConfig: carouselConfig
     }, element);
-  }) : null), /*#__PURE__*/React.createElement("button", {
-    className: "btn btn-border carousel__next",
+  }) : null), /*#__PURE__*/React.createElement("div", {
+    className: "carousel__next",
     onClick: handleNext,
     "data-testid": "next"
   }, nextButtonText), showIndices && /*#__PURE__*/React.createElement("div", {

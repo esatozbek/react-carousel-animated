@@ -5,18 +5,18 @@ Yet another implementation of a carousel component for React. This one is enchan
 ## Installation
 
 ```bash
-npm install react-animated-carousel
+npm install react-carousel-animated
 ```
 
 ```bash
-yarn add react-animated-carousel
+yarn add react-carousel-animated
 ```
 
 ## Usage
 
 ```jsx
-import ReactCarousel, { AFTER, CENTER, BEFORE } from "react-carousel";
-import "react-carousel/dist/ReactCarousel.cjs.css";
+import ReactCarousel, { AFTER, CENTER, BEFORE } from "react-carousel-animated";
+import "react-carousel-animated/dist/ReactCarousel.cjs.css";
 
 <ReactCarousel
     carouselConfig={{
@@ -28,9 +28,6 @@ import "react-carousel/dist/ReactCarousel.cjs.css";
             },
         },
     }}
-    containerStyle={{
-        padding: "50px 0",
-    }}
     itemBackgroundStyle={{
         backgroundColor: "#ece4db",
         borderRadius: "3px",
@@ -40,7 +37,7 @@ import "react-carousel/dist/ReactCarousel.cjs.css";
         filter: "blur(7px)",
         backgroundColor: "rgba(62, 212, 214, 0.3)",
     }}
-    carouselHeight={500}
+    carouselHeight="600px"
 >
     {images.map((image, index) => (
         <img
@@ -48,6 +45,7 @@ import "react-carousel/dist/ReactCarousel.cjs.css";
             src={image.src}
             alt="test"
             style={{
+                height: "500px",
                 borderRadius: "20px",
                 boxShadow: "0 7px 20px 2px rgb(150, 170, 180)",
                 margin: "1rem",
