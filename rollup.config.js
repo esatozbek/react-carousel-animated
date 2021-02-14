@@ -13,7 +13,9 @@ export default {
         { file: pkg.module, format: "esm" },
     ],
     plugins: [
-        scss(),
+        scss({
+            output: "dist/style.css",
+        }),
         external(),
         babel({
             exclude: "node_modules/**",

@@ -18,8 +18,8 @@
         "slider"
     ],
     "source": "src/index.js",
-    "main": "dist/ReactCarousel.cjs.js",
-    "module": "dist/ReactCarousel.esm.js",
+    "main": "dist/index.cjs.js",
+    "module": "dist/index.esm.js",
     "files": [
         "dist"
     ],

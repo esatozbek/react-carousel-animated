@@ -12,11 +12,13 @@ npm install react-carousel-animated
 yarn add react-carousel-animated
 ```
 
+[Codesandbox demo](https://codesandbox.io/s/react-carousel-animated-demo-35ic3)
+
 ## Usage
 
 ```jsx
 import ReactCarousel, { AFTER, CENTER, BEFORE } from "react-carousel-animated";
-import "react-carousel-animated/dist/ReactCarousel.cjs.css";
+import "react-carousel-animated/dist/index.cjs.css";
 
 <ReactCarousel
     carouselConfig={{
