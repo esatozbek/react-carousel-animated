@@ -1,6 +1,6 @@
 {
     "name": "react-carousel-animated",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "Carousel component with spring animations",
     "bugs": {
         "url": "https://github.com/esatozbek/react-carousel/issues"
