@@ -18,7 +18,7 @@ yarn add react-carousel-animated
 
 ```jsx
 import ReactCarousel, { AFTER, CENTER, BEFORE } from "react-carousel-animated";
-import "react-carousel-animated/dist/index.cjs.css";
+import "react-carousel-animated/dist/style.css";
 
 <ReactCarousel
     carouselConfig={{
