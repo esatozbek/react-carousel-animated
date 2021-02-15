@@ -29,9 +29,30 @@ const ReactCarousel = ({
         prev();
     };
 
+    const carouselMapper = (element, index) => {
+        return (
+            <CarouselItem
+                key={index}
+                index={index}
+                selectedItemIndex={selectedIndex}
+                containerWidth={containerWidth}
+                springConfig={springConfig}
+                itemBackgroundStyle={itemBackgroundStyle}
+                carouselConfig={carouselConfig}
+            >
+                {typeof element === "function"
+                    ? element(containerWidth, index === selectedIndex)
+                    : element}
+            </CarouselItem>
+        );
+    };
+
     return (
         <div className="carousel" style={{ ...containerStyle }}>
-            <div className="background" style={{ ...containerBackgroundStyle }} />
+            <div
+                className="carousel__background"
+                style={{ ...containerBackgroundStyle }}
+            />
             <div className="carousel__prev" onClick={handlePrev} data-testid="prev">
                 {prevButtonText}
             </div>
@@ -40,21 +61,7 @@ const ReactCarousel = ({
                 ref={containerRef}
                 style={{ height: carouselHeight }}
             >
-                {containerWidth
-                    ? children.map((element, index) => (
-                          <CarouselItem
-                              key={index}
-                              index={index}
-                              selectedItemIndex={selectedIndex}
-                              containerWidth={containerWidth}
-                              springConfig={springConfig}
-                              itemBackgroundStyle={itemBackgroundStyle}
-                              carouselConfig={carouselConfig}
-                          >
-                              {element}
-                          </CarouselItem>
-                      ))
-                    : null}
+                {containerWidth ? children.map(carouselMapper) : null}
             </div>
             <div className="carousel__next" onClick={handleNext} data-testid="next">
                 {nextButtonText}

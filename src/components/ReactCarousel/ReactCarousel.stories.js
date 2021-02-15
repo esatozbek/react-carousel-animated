@@ -219,3 +219,42 @@ export const CarouselWithStyle = ({
         </div>
     );
 };
+
+export const ResponsiveCarousel = ({
+    springConfig,
+    imagesIndex,
+    width,
+    carouselHeight,
+}) => {
+    return (
+        <div style={{ width }}>
+            <ReactCarousel
+                springConfig={springConfig}
+                containerBackgroundStyle={{
+                    filter: "blur(7px)",
+                    backgroundColor: "rgba(62, 212, 214, 0.3)",
+                }}
+                carouselHeight="600px"
+            >
+                {images[imagesIndex || 0].map(
+                    (image, index) => (containerWidth, selected) => (
+                        <img
+                            key={index}
+                            src={image.src}
+                            alt="test"
+                            style={{
+                                maxHeight: "500px",
+                                maxWidth:
+                                    containerWidth > 650
+                                        ? `${containerWidth / 2}px`
+                                        : `${containerWidth}px`,
+                                borderRadius: "10px",
+                                boxShadow: "0 7px 20px 2px rgb(150, 170, 180)",
+                            }}
+                        />
+                    )
+                )}
+            </ReactCarousel>
+        </div>
+    );
+};
